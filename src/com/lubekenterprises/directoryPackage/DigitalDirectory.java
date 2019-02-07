@@ -195,10 +195,9 @@ public class DigitalDirectory {
 				String[] radioNumber = line.split(splitter);
 
 				try {
-					radioAL.add(new Radio(Integer.parseInt(radioNumber[0]), radioNumber[1], radioNumber[2],
-							radioNumber[3]));
+					radioAL.add(new Radio(radioNumber[0], radioNumber[1], radioNumber[2], radioNumber[3]));
 				} catch (Exception e) { // missing last name
-					radioAL.add(new Radio(Integer.parseInt(radioNumber[0]), radioNumber[1], radioNumber[2]));
+					radioAL.add(new Radio(radioNumber[0], radioNumber[1], radioNumber[2]));
 				}
 
 			}
@@ -262,6 +261,19 @@ public class DigitalDirectory {
 		return roomList;
 	}
 
+	static ArrayList<Radio> findAllRadios(String search, ArrayList<Radio> radios) {
+
+		ArrayList<Radio> radioList = new ArrayList<>();
+
+		for (Radio radio : radios) {
+			if (radio.containsStr(search)) {
+				radioList.add(radio);
+			}
+		}
+
+		return radioList;
+	}
+
 	static void printRooms(ArrayList<Room> rooms) {
 		System.out.println();
 		for (Room r : rooms) {
@@ -289,16 +301,18 @@ public class DigitalDirectory {
 			rad.printInfo();
 		}
 	}
-	
+
 	static void printInitialMenu() {
 		System.out.println();
 		System.out.println("Please select a category to search:");
 		System.out.println("1. Rooms and Residents Numerical");
 		System.out.println("2. Departments");
+		System.out.println("3. Radio Numbers");
 		return;
 	}
 
-	static int userInput(ArrayList<Room> rooms, ArrayList<Department> departments, Scanner scanner) {
+	static int userInput(ArrayList<Room> rooms, ArrayList<Department> departments, ArrayList<Radio> rad,
+			Scanner scanner) {
 
 		printInitialMenu();
 
@@ -329,6 +343,14 @@ public class DigitalDirectory {
 					searchString = searchString.substring(0, 1).toUpperCase() + searchString.substring(1);
 					ArrayList<Department> deptList = findAllDepartments(searchString, departments);
 					printDepartments(deptList);
+					break;
+
+				case 3:
+					System.out.println("Please enter search term: ");
+					searchString = scanner.nextLine();
+					searchString = searchString.substring(0, 1).toUpperCase() + searchString.substring(1);
+					ArrayList<Radio> rads = findAllRadios(searchString, rad);
+					printRadioNumbers(rads);
 					break;
 
 				default:
@@ -371,12 +393,12 @@ public class DigitalDirectory {
 		// Build departments database
 		departments = csvReaderDepartments("/Users/Admin/eclipse-workspace/departments.csv");
 		// printDepartments(departments);
-		
+
 		// Build radio numbers database
 		radios = csvReaderRadioNumbers("/Users/Admin/eclipse-workspace/radios.csv");
-		printRadioNumbers(radios);
+		// printRadioNumbers(radios);
 		// User input
-		userInput(rooms, departments, scanner);
+		userInput(rooms, departments, radios, scanner);
 	}
 
 }

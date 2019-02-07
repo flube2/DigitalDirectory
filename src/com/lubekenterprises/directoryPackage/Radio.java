@@ -9,7 +9,7 @@ package com.lubekenterprises.directoryPackage;
  */
 public class Radio {
 
-	int radioNumber;
+	String radioNumber;
 	String department;
 	String firstName;
 	String lastName;
@@ -20,7 +20,7 @@ public class Radio {
 	 * @param firstName
 	 * @param lastName
 	 */
-	public Radio(int radioNumber, String department, String firstName, String lastName) {
+	public Radio(String radioNumber, String department, String firstName, String lastName) {
 		super();
 		this.radioNumber = radioNumber;
 		this.department = department;
@@ -33,7 +33,7 @@ public class Radio {
 	 * @param department
 	 * @param firstName
 	 */
-	public Radio(int radioNumber, String department, String firstName) {
+	public Radio(String radioNumber, String department, String firstName) {
 		super();
 		this.radioNumber = radioNumber;
 		this.department = department;
@@ -44,7 +44,7 @@ public class Radio {
 	 * @param radioNumber
 	 * @param department
 	 */
-	public Radio(int radioNumber, String department) {
+	public Radio(String radioNumber, String department) {
 		super();
 		this.radioNumber = radioNumber;
 		this.department = department;
@@ -53,14 +53,14 @@ public class Radio {
 	/**
 	 * @return the radioNumber
 	 */
-	public int getRadioNumber() {
+	public String getRadioNumber() {
 		return radioNumber;
 	}
 
 	/**
 	 * @param radioNumber the radioNumber to set
 	 */
-	public void setRadioNumber(int radioNumber) {
+	public void setRadioNumber(String radioNumber) {
 		this.radioNumber = radioNumber;
 	}
 
@@ -106,6 +106,27 @@ public class Radio {
 		this.lastName = lastName;
 	}
 
+	Boolean containsStr(String search) {
+		
+		if(this.department.contains(search)) {
+			return Boolean.TRUE;
+		}
+		
+		if(this.firstName.contains(search)) {
+			return Boolean.TRUE;
+		}
+		
+		
+		if(this.lastName != null && this.lastName.contains(search)) {
+			return Boolean.TRUE;
+		}
+		
+		if(this.radioNumber.contentEquals(search)) {
+			return Boolean.TRUE;
+		}
+		return Boolean.FALSE;
+	}
+	
 	void printInfo() {
 
 		System.out.print(this.radioNumber + " " + this.department + " ");
