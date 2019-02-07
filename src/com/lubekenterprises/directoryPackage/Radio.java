@@ -106,6 +106,19 @@ public class Radio {
 		this.lastName = lastName;
 	}
 
+	void printInfo() {
+
+		System.out.print(this.radioNumber + " " + this.department + " ");
+
+		if (this.firstName != null) {
+			System.out.print(this.firstName + " ");
+		}
+		if (this.lastName != null) {
+			System.out.print(this.lastName);
+		}
+		System.out.print("\n");
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 

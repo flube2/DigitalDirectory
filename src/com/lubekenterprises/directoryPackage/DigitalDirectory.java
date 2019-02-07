@@ -26,12 +26,9 @@ public class DigitalDirectory {
 
 		ArrayList<Person> al = new ArrayList<Person>();
 
-	
-
 		return al;
 	}
 
-/////////////////////////////////////////////////////////////////////////////////
 	/**
 	 * @param persons (will possibly be removed in the future)
 	 * @return roomList, a populated ArrayList of type Room
@@ -175,6 +172,54 @@ public class DigitalDirectory {
 
 	}
 
+	/**
+	 * @author https://www.mkyong.com/java/how-to-read-and-parse-csv-file-in-java/
+	 * @author Frank Lubek
+	 * @param path path to CSV file
+	 * 
+	 *             Edited to suit my needs
+	 */
+	static ArrayList<Radio> csvReaderRadioNumbers(String path) {
+		String csvFile = path;
+		BufferedReader br = null;
+		String line = "";
+		String splitter = ",";
+		ArrayList<Radio> radioAL = new ArrayList<>();
+
+		try {
+
+			br = new BufferedReader(new FileReader(csvFile));
+			while ((line = br.readLine()) != null) {
+
+				// use comma as separator
+				String[] radioNumber = line.split(splitter);
+
+				try {
+					radioAL.add(new Radio(Integer.parseInt(radioNumber[0]), radioNumber[1], radioNumber[2],
+							radioNumber[3]));
+				} catch (Exception e) { // missing last name
+					radioAL.add(new Radio(Integer.parseInt(radioNumber[0]), radioNumber[1], radioNumber[2]));
+				}
+
+			}
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (br != null) {
+				try {
+					br.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return radioAL;
+
+	}
+
 	static void printDivider() {
 		System.out.println();
 		System.out.println("--------------------------------------");
@@ -238,6 +283,13 @@ public class DigitalDirectory {
 		}
 	}
 
+	static void printRadioNumbers(ArrayList<Radio> radioList) {
+		System.out.println();
+		for (Radio rad : radioList) {
+			rad.printInfo();
+		}
+	}
+	
 	static void printInitialMenu() {
 		System.out.println();
 		System.out.println("Please select a category to search:");
@@ -304,13 +356,12 @@ public class DigitalDirectory {
 		ArrayList<Room> rooms;
 		ArrayList<Person> persons;
 		ArrayList<Department> departments;
+		ArrayList<Radio> radios;
 		Scanner scanner = new Scanner(System.in); // scanner.nextLine() to read input strings
 
 		// Create and populate databases
 		persons = generateFakePersonsList();
 		// printPersons(persons);
-
-
 
 		// Build rooms database
 		rooms = csvReaderRooms("/Users/Admin/eclipse-workspace/rooms.csv");
@@ -320,7 +371,10 @@ public class DigitalDirectory {
 		// Build departments database
 		departments = csvReaderDepartments("/Users/Admin/eclipse-workspace/departments.csv");
 		// printDepartments(departments);
-
+		
+		// Build radio numbers database
+		radios = csvReaderRadioNumbers("/Users/Admin/eclipse-workspace/radios.csv");
+		printRadioNumbers(radios);
 		// User input
 		userInput(rooms, departments, scanner);
 	}
