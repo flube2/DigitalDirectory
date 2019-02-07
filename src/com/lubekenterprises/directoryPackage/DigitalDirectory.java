@@ -339,6 +339,7 @@ public class DigitalDirectory {
 	 */
 	public static void main(String[] args) {
 
+		
 		// Declare necessary variables
 		ArrayList<Room> rooms;
 		ArrayList<Person> persons;
