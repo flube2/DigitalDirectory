@@ -1,4 +1,4 @@
-This program's purpose is to replace the physical pen-and-paper directory at Plymouth Place. A digital one is much more efficient. 
+This program's purpose is to replace the physical pen-and-paper directory at work. A digital one is much more efficient. 
 
 *Note: The CSV data files are not included. Upon completion I may create test files to input, but I cannot release the originals because I cannot publish other peoples' personal information to the internet*  
 
