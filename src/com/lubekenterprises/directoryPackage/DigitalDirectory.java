@@ -26,36 +26,9 @@ public class DigitalDirectory {
 
 		ArrayList<Person> al = new ArrayList<Person>();
 
-		Person p = new Person("Bob", "Dylan", "bdylan@aol.com", "123 Oak Street, Hinsdale, IL, 60690",
-				new PhoneNumber("1234567890", "HOME"), new PhoneNumber("1029383847", "cell"));
-		Employee e = new Employee("Frank", "Lubek", "flubek@gmail.com", "9339 Monroe Ave, Brookfield, IL, 60513",
-				new PhoneNumber("7084852700", "HOME"), null,
-				new Department("Security", new PhoneNumber("7084315006", "work"),
-						new PhoneNumber("7085886419", "office")),
-				"Security Officer", "franklubek@plymouthplace.org", "C");
-		// Resident r = new Resident("Matt", "McGoo", "gooBall@tuta.io", "315 N LaGrange
-		// Road, LaGrange Park IL, 24689", new PhoneNumber("7085880105", "HOME"), null,
-		// new Room("105", "1", "Independent Living", null, null), null, Boolean.FALSE,
-		// null);
-		// Patient pt = new Patient("George", "Sickly", null, null, new
-		// PhoneNumber("7084820345", "HOME"), null, new Room("345", "3", "Medical",
-		// null, "Room phone is listed as personal phone"), Bed.BedType.B, null);
-		ArrayList<Person> ap = new ArrayList<Person>();
-		ArrayList<Person> ap2 = new ArrayList<Person>();
-		// ap.add(r);
-		// r.room1.setOccupants(ap);
-		// ap2.add(pt);
-		// pt.room.setOccupants(ap2);
-
-		al.add(p);
-		al.add(e);
-		// al.add(r);
-		// al.add(pt);
-
 		return al;
 	}
 
-/////////////////////////////////////////////////////////////////////////////////
 	/**
 	 * @param persons (will possibly be removed in the future)
 	 * @return roomList, a populated ArrayList of type Room
@@ -65,16 +38,7 @@ public class DigitalDirectory {
 		ArrayList<Room> roomList = new ArrayList<Room>();
 		ArrayList<Person> pl = new ArrayList<Person>();
 		ArrayList<Person> pl2 = new ArrayList<Person>();
-		// pl.add(persons.get(2));
 
-//		Room securityOffice = new Room("LL83", "LL", "Facilities", new ArrayList<Person>(persons.subList(0, 2)), null);
-//		Room resident105 = new Room("105", "1", "Independent Living", pl, null); // this line does nothing
-//		pl2.add(persons.get(3));
-//		Room medical345 = new Room("345", "3", "Medical", pl2, null);
-
-//		 roomList.add(securityOffice);
-//		 roomList.add(resident105);
-//		 roomList.add(medical345);
 		return roomList;
 	}
 
@@ -85,12 +49,6 @@ public class DigitalDirectory {
 
 		ArrayList<Department> deptList = new ArrayList<Department>();
 
-		Department security = new Department("Security", new PhoneNumber("7084315006", "work"),
-				new PhoneNumber("7085886419", "office"));
-		Department maintenance = new Department("Maintenance", new PhoneNumber("7085886419", "office"));
-
-		deptList.add(security);
-		deptList.add(maintenance);
 		return deptList;
 	}
 
@@ -214,6 +172,53 @@ public class DigitalDirectory {
 
 	}
 
+	/**
+	 * @author https://www.mkyong.com/java/how-to-read-and-parse-csv-file-in-java/
+	 * @author Frank Lubek
+	 * @param path path to CSV file
+	 * 
+	 *             Edited to suit my needs
+	 */
+	static ArrayList<Radio> csvReaderRadioNumbers(String path) {
+		String csvFile = path;
+		BufferedReader br = null;
+		String line = "";
+		String splitter = ",";
+		ArrayList<Radio> radioAL = new ArrayList<>();
+
+		try {
+
+			br = new BufferedReader(new FileReader(csvFile));
+			while ((line = br.readLine()) != null) {
+
+				// use comma as separator
+				String[] radioNumber = line.split(splitter);
+
+				try {
+					radioAL.add(new Radio(radioNumber[0], radioNumber[1], radioNumber[2], radioNumber[3]));
+				} catch (Exception e) { // missing last name
+					radioAL.add(new Radio(radioNumber[0], radioNumber[1], radioNumber[2]));
+				}
+
+			}
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (br != null) {
+				try {
+					br.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return radioAL;
+
+	}
+
 	static void printDivider() {
 		System.out.println();
 		System.out.println("--------------------------------------");
@@ -256,6 +261,19 @@ public class DigitalDirectory {
 		return roomList;
 	}
 
+	static ArrayList<Radio> findAllRadios(String search, ArrayList<Radio> radios) {
+
+		ArrayList<Radio> radioList = new ArrayList<>();
+
+		for (Radio radio : radios) {
+			if (radio.containsStr(search)) {
+				radioList.add(radio);
+			}
+		}
+
+		return radioList;
+	}
+
 	static void printRooms(ArrayList<Room> rooms) {
 		System.out.println();
 		for (Room r : rooms) {
@@ -277,15 +295,24 @@ public class DigitalDirectory {
 		}
 	}
 
+	static void printRadioNumbers(ArrayList<Radio> radioList) {
+		System.out.println();
+		for (Radio rad : radioList) {
+			rad.printInfo();
+		}
+	}
+
 	static void printInitialMenu() {
 		System.out.println();
 		System.out.println("Please select a category to search:");
 		System.out.println("1. Rooms and Residents Numerical");
 		System.out.println("2. Departments");
+		System.out.println("3. Radio Numbers");
 		return;
 	}
 
-	static int userInput(ArrayList<Room> rooms, ArrayList<Department> departments, Scanner scanner) {
+	static int userInput(ArrayList<Room> rooms, ArrayList<Department> departments, ArrayList<Radio> rad,
+			Scanner scanner) {
 
 		printInitialMenu();
 
@@ -318,6 +345,14 @@ public class DigitalDirectory {
 					printDepartments(deptList);
 					break;
 
+				case 3:
+					System.out.println("Please enter search term: ");
+					searchString = scanner.nextLine();
+					searchString = searchString.substring(0, 1).toUpperCase() + searchString.substring(1);
+					ArrayList<Radio> rads = findAllRadios(searchString, rad);
+					printRadioNumbers(rads);
+					break;
+
 				default:
 					System.out.println("Invalid Selection");
 
@@ -343,18 +378,12 @@ public class DigitalDirectory {
 		ArrayList<Room> rooms;
 		ArrayList<Person> persons;
 		ArrayList<Department> departments;
+		ArrayList<Radio> radios;
 		Scanner scanner = new Scanner(System.in); // scanner.nextLine() to read input strings
 
 		// Create and populate databases
 		persons = generateFakePersonsList();
 		// printPersons(persons);
-
-//        rooms = generateFakeRoomsList(persons);
-//        printRooms(rooms)
-//        printDivider();
-
-		// ArrayList<Department> depts = generateFakeDepartmentsList();
-		// printDepartments(depts);
 
 		// Build rooms database
 		rooms = csvReaderRooms("/Users/Admin/eclipse-workspace/rooms.csv");
@@ -365,8 +394,11 @@ public class DigitalDirectory {
 		departments = csvReaderDepartments("/Users/Admin/eclipse-workspace/departments.csv");
 		// printDepartments(departments);
 
+		// Build radio numbers database
+		radios = csvReaderRadioNumbers("/Users/Admin/eclipse-workspace/radios.csv");
+		// printRadioNumbers(radios);
 		// User input
-		userInput(rooms, departments, scanner);
+		userInput(rooms, departments, radios, scanner);
 	}
 
 }
