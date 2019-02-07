@@ -129,7 +129,7 @@ public class Radio {
 	
 	void printInfo() {
 
-		System.out.print(this.radioNumber + " " + this.department + " ");
+		System.out.print("#" + this.radioNumber + " " + this.department + " ");
 
 		if (this.firstName != null) {
 			System.out.print(this.firstName + " ");
