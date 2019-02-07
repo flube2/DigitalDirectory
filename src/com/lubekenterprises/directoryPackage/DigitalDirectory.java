@@ -339,7 +339,6 @@ public class DigitalDirectory {
 	 */
 	public static void main(String[] args) {
 
-		
 		// Declare necessary variables
 		ArrayList<Room> rooms;
 		ArrayList<Person> persons;
@@ -350,8 +349,6 @@ public class DigitalDirectory {
 		persons = generateFakePersonsList();
 		// printPersons(persons);
 
-		
-		
 //        rooms = generateFakeRoomsList(persons);
 //        printRooms(rooms)
 //        printDivider();
