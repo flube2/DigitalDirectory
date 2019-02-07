@@ -351,6 +351,7 @@ public class DigitalDirectory {
 		// printPersons(persons);
 
 		
+		
 //        rooms = generateFakeRoomsList(persons);
 //        printRooms(rooms)
 //        printDivider();
