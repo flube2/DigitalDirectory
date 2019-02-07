@@ -26,31 +26,7 @@ public class DigitalDirectory {
 
 		ArrayList<Person> al = new ArrayList<Person>();
 
-		Person p = new Person("Bob", "Dylan", "bdylan@aol.com", "123 Oak Street, Hinsdale, IL, 60690",
-				new PhoneNumber("1234567890", "HOME"), new PhoneNumber("1029383847", "cell"));
-		Employee e = new Employee("Frank", "Lubek", "flubek@gmail.com", "9339 Monroe Ave, Brookfield, IL, 60513",
-				new PhoneNumber("7084852700", "HOME"), null,
-				new Department("Security", new PhoneNumber("7084315006", "work"),
-						new PhoneNumber("7085886419", "office")),
-				"Security Officer", "franklubek@plymouthplace.org", "C");
-		// Resident r = new Resident("Matt", "McGoo", "gooBall@tuta.io", "315 N LaGrange
-		// Road, LaGrange Park IL, 24689", new PhoneNumber("7085880105", "HOME"), null,
-		// new Room("105", "1", "Independent Living", null, null), null, Boolean.FALSE,
-		// null);
-		// Patient pt = new Patient("George", "Sickly", null, null, new
-		// PhoneNumber("7084820345", "HOME"), null, new Room("345", "3", "Medical",
-		// null, "Room phone is listed as personal phone"), Bed.BedType.B, null);
-		ArrayList<Person> ap = new ArrayList<Person>();
-		ArrayList<Person> ap2 = new ArrayList<Person>();
-		// ap.add(r);
-		// r.room1.setOccupants(ap);
-		// ap2.add(pt);
-		// pt.room.setOccupants(ap2);
-
-		al.add(p);
-		al.add(e);
-		// al.add(r);
-		// al.add(pt);
+	
 
 		return al;
 	}
