@@ -219,7 +219,7 @@ public class DigitalDirectory {
 		System.out.println("--------------------------------------");
 		System.out.println();
 	}
-	
+
 	static ArrayList<Department> findAllDepartments(String search, ArrayList<Department> departments) {
 
 		ArrayList<Department> depts = new ArrayList<>();
@@ -276,8 +276,7 @@ public class DigitalDirectory {
 			department.printInfo();
 		}
 	}
-	
-	
+
 	static void printInitialMenu() {
 		System.out.println();
 		System.out.println("Please select a category to search:");
@@ -285,8 +284,6 @@ public class DigitalDirectory {
 		System.out.println("2. Departments");
 		return;
 	}
-	
-	
 
 	static int userInput(ArrayList<Room> rooms, ArrayList<Department> departments, Scanner scanner) {
 
@@ -301,32 +298,32 @@ public class DigitalDirectory {
 			}
 
 			try {
-			
-			switch (Integer.parseInt(searchString)) {
 
-			case 1:
-				System.out.println("Please enter search term:");
-				searchString = scanner.nextLine();
-				searchString = searchString.substring(0, 1).toUpperCase() + searchString.substring(1);
-				ArrayList<Room> roomList = findAllRooms(searchString, rooms); // enable partial room number??
-				// findRoomByRoomNumber("112", rooms).printInfo();
-				printRooms(roomList);
-				break;
+				switch (Integer.parseInt(searchString)) {
 
-			case 2:
-				System.out.println("Please enter search term:");
-				searchString = scanner.nextLine();
-				searchString = searchString.substring(0, 1).toUpperCase() + searchString.substring(1);
-				ArrayList<Department> deptList = findAllDepartments(searchString, departments);
-				printDepartments(deptList);
-				break;
-				
-			default:
-				System.out.println("Invalid Selection");
+				case 1:
+					System.out.println("Please enter search term:");
+					searchString = scanner.nextLine();
+					searchString = searchString.substring(0, 1).toUpperCase() + searchString.substring(1);
+					ArrayList<Room> roomList = findAllRooms(searchString, rooms); // enable partial room number??
+					// findRoomByRoomNumber("112", rooms).printInfo();
+					printRooms(roomList);
+					break;
 
-			}
+				case 2:
+					System.out.println("Please enter search term:");
+					searchString = scanner.nextLine();
+					searchString = searchString.substring(0, 1).toUpperCase() + searchString.substring(1);
+					ArrayList<Department> deptList = findAllDepartments(searchString, departments);
+					printDepartments(deptList);
+					break;
 
-			} catch(NumberFormatException nfe) {
+				default:
+					System.out.println("Invalid Selection");
+
+				}
+
+			} catch (NumberFormatException nfe) {
 				System.out.println("Please enter a category first");
 			}
 			printInitialMenu();
@@ -356,19 +353,17 @@ public class DigitalDirectory {
 //        printRooms(rooms)
 //        printDivider();
 
-		//ArrayList<Department> depts = generateFakeDepartmentsList();
+		// ArrayList<Department> depts = generateFakeDepartmentsList();
 		// printDepartments(depts);
 
 		// Build rooms database
-		rooms = csvReaderRooms(
-				"/Users/Admin/eclipse-workspace/rooms.csv");
+		rooms = csvReaderRooms("/Users/Admin/eclipse-workspace/rooms.csv");
 		// printRooms(rooms);
 		// printDivider();
 
 		// Build departments database
-		departments = csvReaderDepartments(
-				"/Users/Admin/eclipse-workspace/departments.csv");
-		//printDepartments(departments);
+		departments = csvReaderDepartments("/Users/Admin/eclipse-workspace/departments.csv");
+		// printDepartments(departments);
 
 		// User input
 		userInput(rooms, departments, scanner);
