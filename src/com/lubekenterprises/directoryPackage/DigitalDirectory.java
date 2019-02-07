@@ -303,14 +303,38 @@ public class DigitalDirectory {
 	}
 
 	static void printInitialMenu() {
+
 		System.out.println();
 		System.out.println("Please select a category to search:");
 		System.out.println("1. Rooms and Residents Numerical");
-		System.out.println("2. Departments");
-		System.out.println("3. Radio Numbers");
+		System.out.println("2. Residents Alpha (NotYet Implemented)");
+		System.out.println("3. Departments");
+		System.out.println("4. Departments");
+		System.out.println("5. Departments");
+		System.out.println("6. Radio Numbers");
+		System.out.println("7. Radio Numbers");
+
 		return;
 	}
 
+	
+	
+	
+	/**
+	 * @param rooms
+	 * @param departments
+	 * @param rad
+	 * @param scanner
+	 * @return
+	 * 
+	 * 	1. Rooms and Residents Numerical
+	 *  2. Residents Alpha
+	 *  3. Departments
+	 *  4. Employees
+	 *  5. Radio Call Numbers
+	 *  6. External Services
+	 *  7. All
+	 */
 	static int userInput(ArrayList<Room> rooms, ArrayList<Department> departments, ArrayList<Radio> rad,
 			Scanner scanner) {
 
@@ -328,7 +352,7 @@ public class DigitalDirectory {
 
 				switch (Integer.parseInt(searchString)) {
 
-				case 1:
+				case 1: // Rooms
 					System.out.println("Please enter search term:");
 					searchString = scanner.nextLine();
 					searchString = searchString.substring(0, 1).toUpperCase() + searchString.substring(1);
@@ -337,7 +361,7 @@ public class DigitalDirectory {
 					printRooms(roomList);
 					break;
 
-				case 2:
+				case 3: // Departments
 					System.out.println("Please enter search term:");
 					searchString = scanner.nextLine();
 					searchString = searchString.substring(0, 1).toUpperCase() + searchString.substring(1);
@@ -345,7 +369,7 @@ public class DigitalDirectory {
 					printDepartments(deptList);
 					break;
 
-				case 3:
+				case 5: // Radios
 					System.out.println("Please enter search term: ");
 					searchString = scanner.nextLine();
 					searchString = searchString.substring(0, 1).toUpperCase() + searchString.substring(1);
