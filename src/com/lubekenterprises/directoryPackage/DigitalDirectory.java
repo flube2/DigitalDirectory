@@ -65,16 +65,7 @@ public class DigitalDirectory {
 		ArrayList<Room> roomList = new ArrayList<Room>();
 		ArrayList<Person> pl = new ArrayList<Person>();
 		ArrayList<Person> pl2 = new ArrayList<Person>();
-		// pl.add(persons.get(2));
 
-//		Room securityOffice = new Room("LL83", "LL", "Facilities", new ArrayList<Person>(persons.subList(0, 2)), null);
-//		Room resident105 = new Room("105", "1", "Independent Living", pl, null); // this line does nothing
-//		pl2.add(persons.get(3));
-//		Room medical345 = new Room("345", "3", "Medical", pl2, null);
-
-//		 roomList.add(securityOffice);
-//		 roomList.add(resident105);
-//		 roomList.add(medical345);
 		return roomList;
 	}
 
@@ -85,12 +76,6 @@ public class DigitalDirectory {
 
 		ArrayList<Department> deptList = new ArrayList<Department>();
 
-		Department security = new Department("Security", new PhoneNumber("7084315006", "work"),
-				new PhoneNumber("7085886419", "office"));
-		Department maintenance = new Department("Maintenance", new PhoneNumber("7085886419", "office"));
-
-		deptList.add(security);
-		deptList.add(maintenance);
 		return deptList;
 	}
 
@@ -349,12 +334,7 @@ public class DigitalDirectory {
 		persons = generateFakePersonsList();
 		// printPersons(persons);
 
-//        rooms = generateFakeRoomsList(persons);
-//        printRooms(rooms)
-//        printDivider();
 
-		// ArrayList<Department> depts = generateFakeDepartmentsList();
-		// printDepartments(depts);
 
 		// Build rooms database
 		rooms = csvReaderRooms("/Users/Admin/eclipse-workspace/rooms.csv");
