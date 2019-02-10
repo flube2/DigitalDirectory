@@ -307,12 +307,12 @@ public class DigitalDirectory {
 		System.out.println();
 		System.out.println("Please select a category to search:");
 		System.out.println("1. Rooms and Residents Numerical");
-		System.out.println("2. Residents Alpha (NotYet Implemented)");
+		System.out.println("2. Residents Alpha (Not Yet Implemented)");
 		System.out.println("3. Departments");
-		System.out.println("4. Departments");
-		System.out.println("5. Departments");
-		System.out.println("6. Radio Numbers");
-		System.out.println("7. Radio Numbers");
+		System.out.println("4. Employees (Not Yet Implemented)");
+		System.out.println("5. Radio Numbers");
+		System.out.println("6. External Services (Not Yet Implemented)");
+		System.out.println("7. All (Not Yet Implemented)");
 
 		return;
 	}
