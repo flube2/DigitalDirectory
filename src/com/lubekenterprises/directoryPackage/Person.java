@@ -8,17 +8,14 @@ package com.lubekenterprises.directoryPackage;
  *
  */
 public class Person {
-	
+
 	String firstName;
 	String lastName;
 	String email;
 	String address;
 	PhoneNumber primaryPhone;
 	PhoneNumber secondaryPhone;
-	
-	
 
-	
 	/**
 	 * @param firstName
 	 * @param lastName
@@ -37,9 +34,7 @@ public class Person {
 		this.primaryPhone = primaryPhone;
 		this.secondaryPhone = secondaryPhone;
 	}
-	
 
-	
 	/**
 	 * @param firstName
 	 * @param lastName
@@ -57,8 +52,6 @@ public class Person {
 		this.secondaryPhone = secondaryPhone;
 	}
 
-
-
 	/**
 	 * @param firstName
 	 * @param lastName
@@ -70,8 +63,6 @@ public class Person {
 		this.lastName = lastName;
 		this.primaryPhone = primaryPhone;
 	}
-
-
 
 	/**
 	 * @return the first name
@@ -163,22 +154,25 @@ public class Person {
 	void printInfo() {
 		System.out.println("First Name is  " + this.firstName);
 		System.out.println("Last Name is   " + this.lastName);
-		if(this.email != null) {
-		System.out.println("Email is       " + this.email);
+		if (this.email != null) {
+			System.out.println("Email is       " + this.email);
 		}
-		if(this.address != null) {
-		System.out.println("Address is     " + this.address);
+
+		if (this.address != null) {
+			System.out.println("Address is     " + this.address);
 		}
-        System.out.println();
+		System.out.println();
 
-        System.out.println("Primary Phone: ");
-        this.primaryPhone.printInfo();
-        if (this.secondaryPhone != null) {
+		if (this.primaryPhone != null) {
+			System.out.println("Primary Phone: ");
+			this.primaryPhone.printInfo();
+		}
 
-            System.out.println("Secondary Phone: ");
-            this.secondaryPhone.printInfo();
-        }
-		
+		if (this.secondaryPhone != null) {
+			System.out.println("Secondary Phone: ");
+			this.secondaryPhone.printInfo();
+		}
+
 	}
 
 	/*

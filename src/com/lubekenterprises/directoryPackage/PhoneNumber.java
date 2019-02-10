@@ -41,9 +41,8 @@ public class PhoneNumber {
 			this.type = getValidEnum(typeString);
 		} else {
 			// TODO: implement exiting to main menu, not exiting the program
-			System.out
-					.println("Error: Invalid Phone Number... Therefore, Exiting... (Line 25ish in Phone Number.java)");
-			System.exit(-1);
+			System.out.println("Error: Invalid Phone Number In Database");
+			System.out.println(fullNumber);
 		}
 	}
 
