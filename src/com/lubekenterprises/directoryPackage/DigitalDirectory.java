@@ -459,7 +459,7 @@ public class DigitalDirectory {
 		System.out.println();
 		System.out.println("Please select a category to search:");
 		System.out.println("1. Rooms and Residents Numerical");
-		System.out.println("2. Residents Alpha (Not Yet Implemented)");
+		System.out.println("2. Residents Alpha");
 		System.out.println("3. Departments");
 		System.out.println("4. Employees");
 		System.out.println("5. Radio Numbers");
