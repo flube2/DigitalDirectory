@@ -464,7 +464,7 @@ public class DigitalDirectory {
 		System.out.println("4. Employees");
 		System.out.println("5. Radio Numbers");
 		System.out.println("6. External Services (Not Yet Implemented)");
-		System.out.println("7. All (Not Yet Implemented)");
+		System.out.println("7. All");
 
 		return;
 	}
