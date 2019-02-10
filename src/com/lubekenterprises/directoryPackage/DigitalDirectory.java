@@ -323,6 +323,19 @@ public class DigitalDirectory {
 		return radioList;
 	}
 
+	static ArrayList<Employee> findAllEmployees(String search, ArrayList<Employee> employees) {
+
+		ArrayList<Employee> employeeList = new ArrayList<>();
+
+		for (Employee e : employees) {
+			if (e.containsStr(search)) {
+				employeeList.add(e);
+			}
+		}
+
+		return employeeList;
+	}
+
 	static void printRooms(ArrayList<Room> rooms) {
 		System.out.println();
 		for (Room r : rooms) {
@@ -351,6 +364,13 @@ public class DigitalDirectory {
 		}
 	}
 
+	static void printEmployees(ArrayList<Employee> employeeList) {
+		System.out.println();
+		for (Employee e : employeeList) {
+			e.printInfo();
+		}
+	}
+
 	static void printInitialMenu() {
 
 		System.out.println();
@@ -371,13 +391,14 @@ public class DigitalDirectory {
 	 * @param departments
 	 * @param rad
 	 * @param scanner
+	 * @param employees
 	 * @return
 	 * 
 	 * 		1. Rooms and Residents Numerical 2. Residents Alpha 3. Departments 4.
 	 *         Employees 5. Radio Call Numbers 6. External Services 7. All
 	 */
 	static int userInput(ArrayList<Room> rooms, ArrayList<Department> departments, ArrayList<Radio> rad,
-			Scanner scanner) {
+			ArrayList<Employee> employees, Scanner scanner) {
 
 		printInitialMenu();
 
@@ -408,6 +429,14 @@ public class DigitalDirectory {
 					searchString = searchString.substring(0, 1).toUpperCase() + searchString.substring(1);
 					ArrayList<Department> deptList = findAllDepartments(searchString, departments);
 					printDepartments(deptList);
+					break;
+
+				case 4: // Employees
+					System.out.println("Please enter search term:");
+					searchString = scanner.nextLine();
+					searchString = searchString.substring(0, 1).toUpperCase() + searchString.substring(1);
+					ArrayList<Employee> empList = findAllEmployees(searchString, employees);
+					printEmployees(empList);
 					break;
 
 				case 5: // Radios
@@ -468,7 +497,7 @@ public class DigitalDirectory {
 		emps = csvReaderEmployees("/Users/Admin/eclipse-workspace/employees.csv");
 
 		// User input
-		userInput(rooms, departments, radios, scanner);
+		userInput(rooms, departments, radios, emps, scanner);
 	}
 
 }
