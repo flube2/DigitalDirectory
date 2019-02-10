@@ -41,6 +41,39 @@ public class Person {
 
 	
 	/**
+	 * @param firstName
+	 * @param lastName
+	 * @param email
+	 * @param primaryPhone
+	 * @param secondaryPhone
+	 */
+	public Person(String firstName, String lastName, String email, PhoneNumber primaryPhone,
+			PhoneNumber secondaryPhone) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.primaryPhone = primaryPhone;
+		this.secondaryPhone = secondaryPhone;
+	}
+
+
+
+	/**
+	 * @param firstName
+	 * @param lastName
+	 * @param primaryPhone
+	 */
+	public Person(String firstName, String lastName, PhoneNumber primaryPhone) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.primaryPhone = primaryPhone;
+	}
+
+
+
+	/**
 	 * @return the first name
 	 */
 	public String getFirstName() {

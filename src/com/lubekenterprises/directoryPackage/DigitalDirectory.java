@@ -218,6 +218,53 @@ public class DigitalDirectory {
 		return radioAL;
 
 	}
+	
+	/**
+	 * @author https://www.mkyong.com/java/how-to-read-and-parse-csv-file-in-java/
+	 * @author Frank Lubek
+	 * @param path path to CSV file
+	 * 
+	 *             Edited to suit my needs
+	 */
+	static ArrayList<Employee> csvReaderEmployees(String path) {
+		String csvFile = path;
+		BufferedReader br = null;
+		String line = "";
+		String splitter = ",";
+		ArrayList<Employee> empAL = new ArrayList<>();
+
+		try {
+
+			br = new BufferedReader(new FileReader(csvFile));
+			while ((line = br.readLine()) != null) {
+
+				// use comma as separator
+				String[] employee = line.split(splitter);
+
+				try {
+					empAL.add(new Employee(employee[1], employee[0], new PhoneNumber(employee[4], "PRIMARY"), employee[2], employee[5]));
+				} catch (Exception e) { // missing email
+					empAL.add(new Employee(employee[1], employee[0], new PhoneNumber(employee[4], "PRIMARY"), employee[2], null));
+				}
+
+			}
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (br != null) {
+				try {
+					br.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return empAL;
+
+	}
 
 	static void printDivider() {
 		System.out.println();

@@ -54,6 +54,46 @@ public class Employee extends Person {
 		this.workEmail = workEmail;
 		this.status = verifyAndSetStatus(statusString);
 	}
+	
+	
+	/**
+	 * @param first
+	 * @param last
+	 * @param phoneNum
+	 * @param type
+	 * @param department
+	 * @param jobTitle
+	 * @param workEmail
+	 * 
+	 */
+	Employee(String first, String last, PhoneNumber phone1,
+			Department department, String jobTitle, String workEmail, String statusString) {
+		super(first, last, phone1);
+		this.department = department;
+		this.jobTitle = jobTitle;
+		this.workEmail = workEmail;
+		this.status = verifyAndSetStatus(statusString);
+	}
+	
+	
+	
+	/**
+	 * @param firstName
+	 * @param lastName
+	 * @param email
+	 * @param address
+	 * @param primaryPhone
+	 * @param secondaryPhone
+	 * @param jobTitle
+	 * @param workEmail
+	 */
+	public Employee(String firstName, String lastName, PhoneNumber primaryPhone,
+			String jobTitle, String workEmail) {
+		super(firstName, lastName, primaryPhone);
+		this.jobTitle = jobTitle;
+		this.workEmail = workEmail;
+	}
+
 
 	/**
 	 * @return the department
