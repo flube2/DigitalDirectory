@@ -277,6 +277,59 @@ public class DigitalDirectory {
 		return empAL;
 
 	}
+	
+	/**
+	 * @author https://www.mkyong.com/java/how-to-read-and-parse-csv-file-in-java/
+	 * @author Frank Lubek
+	 * @param path path to CSV file
+	 * 
+	 *             Edited to suit my needs
+	 */
+	static ArrayList<Resident> csvReaderResidents(String path) {
+		String csvFile = path;
+		BufferedReader br = null;
+		String line = "";
+		String splitter = ",";
+		ArrayList<Resident> resAL = new ArrayList<>();
+
+		try {
+
+			br = new BufferedReader(new FileReader(csvFile));
+			while ((line = br.readLine()) != null) {
+
+				// use comma as separator
+				String[] resident = line.split(splitter);
+
+				try {
+					resAL.add(new Resident(resident[1], resident[0], new PhoneNumber(resident[3], "HOME"), resident[2], resident[4]));
+				} catch (Exception e) { 
+
+					try { // no email
+						resAL.add(new Resident(resident[1], resident[0], new PhoneNumber(resident[3], "HOME"), resident[2], null));
+					} catch(Exception e2) { // no email or phone number
+						resAL.add(new Resident(resident[1], resident[0], null, resident[2], null));
+					}
+				}
+
+			}
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (br != null) {
+				try {
+					br.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return resAL;
+
+	}
+	
 
 	static void printDivider() {
 		System.out.println();
@@ -345,6 +398,19 @@ public class DigitalDirectory {
 
 		return employeeList;
 	}
+	
+	static ArrayList<Resident> findAllResidents(String search, ArrayList<Resident> residents) {
+
+		ArrayList<Resident> residentList = new ArrayList<>();
+
+		for (Resident r : residents) {
+			if (r.containsStr(search)) {
+				residentList.add(r);
+			}
+		}
+
+		return residentList;
+	}
 
 	static void printRooms(ArrayList<Room> rooms) {
 		System.out.println();
@@ -381,6 +447,13 @@ public class DigitalDirectory {
 		}
 	}
 
+	static void printResidents(ArrayList<Resident> residentList) {
+		System.out.println();
+		for (Resident r : residentList) {
+			r.printInfo();
+		}
+	}
+	
 	static void printInitialMenu() {
 
 		System.out.println();
@@ -416,7 +489,7 @@ public class DigitalDirectory {
 	 * @return
 	 */
 	static int userInput(ArrayList<Room> rooms, ArrayList<Department> departments, ArrayList<Radio> radios,
-			ArrayList<Employee> employees, Scanner scanner) {
+			ArrayList<Employee> employees, ArrayList<Resident> residents, Scanner scanner) {
 
 		printInitialMenu();
 
@@ -439,6 +512,14 @@ public class DigitalDirectory {
 					ArrayList<Room> roomList = findAllRooms(searchString, rooms); // enable partial room number??
 					// findRoomByRoomNumber("112", rooms).printInfo();
 					printRooms(roomList);
+					break;
+					
+				case 2: // Residents
+					System.out.println("Please enter search term:");
+					searchString = scanner.nextLine();
+					searchString = capitalize(searchString);
+					ArrayList<Resident> resList = findAllResidents(searchString, residents); // enable partial room number??
+					printResidents(resList);
 					break;
 
 				case 3: // Departments
@@ -495,6 +576,7 @@ public class DigitalDirectory {
 		ArrayList<Department> departments;
 		ArrayList<Radio> radios;
 		ArrayList<Employee> emps;
+		ArrayList<Resident> residents;
 		
 		// User input will be needed
 		Scanner scanner = new Scanner(System.in);
@@ -515,10 +597,13 @@ public class DigitalDirectory {
 	
 			// Build employee database
 			emps = csvReaderEmployees("/Users/Admin/eclipse-workspace/employees.csv");
+			
+			// Build residents database
+			residents = csvReaderResidents("/Users/Admin/eclipse-workspace/residents.csv");
 		}
 		
 		// User input
-		userInput(rooms, departments, radios, emps, scanner);
+		userInput(rooms, departments, radios, emps, residents, scanner);
 	}
 
 }

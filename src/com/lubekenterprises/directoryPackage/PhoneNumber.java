@@ -42,6 +42,7 @@ public class PhoneNumber {
 		} else {
 			// TODO: implement exiting to main menu, not exiting the program
 			System.out.println("Error: Invalid Phone Number In Database");
+			System.out.println(fullNumber);
 		}
 	}
 
