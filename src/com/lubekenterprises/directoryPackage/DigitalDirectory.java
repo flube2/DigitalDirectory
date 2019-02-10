@@ -218,7 +218,7 @@ public class DigitalDirectory {
 		return radioAL;
 
 	}
-	
+
 	/**
 	 * @author https://www.mkyong.com/java/how-to-read-and-parse-csv-file-in-java/
 	 * @author Frank Lubek
@@ -242,9 +242,11 @@ public class DigitalDirectory {
 				String[] employee = line.split(splitter);
 
 				try {
-					empAL.add(new Employee(employee[1], employee[0], new PhoneNumber(employee[4], "PRIMARY"), employee[2], employee[5]));
+					empAL.add(new Employee(employee[1], employee[0], new PhoneNumber(employee[4], "PRIMARY"),
+							employee[2], employee[5]));
 				} catch (Exception e) { // missing email
-					empAL.add(new Employee(employee[1], employee[0], new PhoneNumber(employee[4], "PRIMARY"), employee[2], null));
+					empAL.add(new Employee(employee[1], employee[0], new PhoneNumber(employee[4], "PRIMARY"),
+							employee[2], null));
 				}
 
 			}
@@ -364,9 +366,6 @@ public class DigitalDirectory {
 		return;
 	}
 
-	
-	
-	
 	/**
 	 * @param rooms
 	 * @param departments
@@ -374,13 +373,8 @@ public class DigitalDirectory {
 	 * @param scanner
 	 * @return
 	 * 
-	 * 	1. Rooms and Residents Numerical
-	 *  2. Residents Alpha
-	 *  3. Departments
-	 *  4. Employees
-	 *  5. Radio Call Numbers
-	 *  6. External Services
-	 *  7. All
+	 * 		1. Rooms and Residents Numerical 2. Residents Alpha 3. Departments 4.
+	 *         Employees 5. Radio Call Numbers 6. External Services 7. All
 	 */
 	static int userInput(ArrayList<Room> rooms, ArrayList<Department> departments, ArrayList<Radio> rad,
 			Scanner scanner) {
@@ -450,6 +444,7 @@ public class DigitalDirectory {
 		ArrayList<Person> persons;
 		ArrayList<Department> departments;
 		ArrayList<Radio> radios;
+		ArrayList<Employee> emps;
 		Scanner scanner = new Scanner(System.in); // scanner.nextLine() to read input strings
 
 		// Create and populate databases
@@ -468,6 +463,10 @@ public class DigitalDirectory {
 		// Build radio numbers database
 		radios = csvReaderRadioNumbers("/Users/Admin/eclipse-workspace/radios.csv");
 		// printRadioNumbers(radios);
+
+		// Build employee database
+		emps = csvReaderEmployees("/Users/Admin/eclipse-workspace/employees.csv");
+
 		// User input
 		userInput(rooms, departments, radios, scanner);
 	}

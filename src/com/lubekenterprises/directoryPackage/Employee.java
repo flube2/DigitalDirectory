@@ -181,8 +181,12 @@ public class Employee extends Person {
 	void printInfo() {
 		super.printInfo();
 		System.out.println();
+		if(this.status != null) {
 		System.out.println("Status is      " + this.status.stat.toString());
+		}
+		if(this.workEmail != null) {
 		System.out.println("Work email is  " + this.workEmail);
+		}
 		System.out.println("Job title is   " + this.jobTitle);
 		this.department.printInfo();
 	}
