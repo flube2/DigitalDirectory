@@ -510,7 +510,6 @@ public class DigitalDirectory {
 					searchString = scanner.nextLine();
 					searchString = capitalize(searchString);
 					ArrayList<Room> roomList = findAllRooms(searchString, rooms); // enable partial room number??
-					// findRoomByRoomNumber("112", rooms).printInfo();
 					printRooms(roomList);
 					break;
 					
@@ -518,7 +517,7 @@ public class DigitalDirectory {
 					System.out.println("Please enter search term:");
 					searchString = scanner.nextLine();
 					searchString = capitalize(searchString);
-					ArrayList<Resident> resList = findAllResidents(searchString, residents); // enable partial room number??
+					ArrayList<Resident> resList = findAllResidents(searchString, residents);
 					printResidents(resList);
 					break;
 
@@ -545,6 +544,24 @@ public class DigitalDirectory {
 					ArrayList<Radio> rads = findAllRadios(searchString, radios);
 					printRadioNumbers(rads);
 					break;
+					
+				case 7: // All
+					System.out.println("Please enter search term: ");
+					searchString = scanner.nextLine();
+					searchString = capitalize(searchString);
+					roomList = findAllRooms(searchString, rooms); // enable partial room number??
+					printRooms(roomList);
+					resList = findAllResidents(searchString, residents);
+					printResidents(resList);
+					deptList = findAllDepartments(searchString, departments);
+					printDepartments(deptList);
+					empList = findAllEmployees(searchString, employees);
+					printEmployees(empList);
+					rads = findAllRadios(searchString, radios);
+					printRadioNumbers(rads);
+					break;
+					
+					
 
 				default:
 					System.out.println("Invalid Selection");
