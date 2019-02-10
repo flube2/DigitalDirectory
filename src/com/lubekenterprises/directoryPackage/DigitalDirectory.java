@@ -53,16 +53,15 @@ public class DigitalDirectory {
 	}
 
 	static String capitalize(String s) {
-		
+
 		try {
-		s = s.substring(0, 1).toUpperCase() + s.substring(1);
-		}
-		catch(Exception e) {
+			s = s.substring(0, 1).toUpperCase() + s.substring(1);
+		} catch (Exception e) {
 			// do nothing
 		}
 		return s;
 	}
-	
+
 	/**
 	 * @author https://www.mkyong.com/java/how-to-read-and-parse-csv-file-in-java/
 	 * @author Frank Lubek
@@ -411,12 +410,12 @@ public class DigitalDirectory {
 	/**
 	 * @param rooms
 	 * @param departments
-	 * @param rad
+	 * @param radios
 	 * @param employees
 	 * @param scanner
 	 * @return
 	 */
-	static int userInput(ArrayList<Room> rooms, ArrayList<Department> departments, ArrayList<Radio> rad,
+	static int userInput(ArrayList<Room> rooms, ArrayList<Department> departments, ArrayList<Radio> radios,
 			ArrayList<Employee> employees, Scanner scanner) {
 
 		printInitialMenu();
@@ -462,7 +461,7 @@ public class DigitalDirectory {
 					System.out.println("Please enter search term: ");
 					searchString = scanner.nextLine();
 					searchString = capitalize(searchString);
-					ArrayList<Radio> rads = findAllRadios(searchString, rad);
+					ArrayList<Radio> rads = findAllRadios(searchString, radios);
 					printRadioNumbers(rads);
 					break;
 
@@ -480,6 +479,9 @@ public class DigitalDirectory {
 
 		return 0;
 	}
+	
+	
+	
 
 	/**
 	 * @author Frank Lubek
@@ -493,28 +495,28 @@ public class DigitalDirectory {
 		ArrayList<Department> departments;
 		ArrayList<Radio> radios;
 		ArrayList<Employee> emps;
-		Scanner scanner = new Scanner(System.in); // scanner.nextLine() to read input strings
+		
+		// User input will be needed
+		Scanner scanner = new Scanner(System.in);
 
-		// Create and populate databases
-		persons = generateFakePersonsList();
-		// printPersons(persons);
-
-		// Build rooms database
-		rooms = csvReaderRooms("/Users/Admin/eclipse-workspace/rooms.csv");
-		// printRooms(rooms);
-		// printDivider();
-
-		// Build departments database
-		departments = csvReaderDepartments("/Users/Admin/eclipse-workspace/departments.csv");
-		// printDepartments(departments);
-
-		// Build radio numbers database
-		radios = csvReaderRadioNumbers("/Users/Admin/eclipse-workspace/radios.csv");
-		// printRadioNumbers(radios);
-
-		// Build employee database
-		emps = csvReaderEmployees("/Users/Admin/eclipse-workspace/employees.csv");
-
+		{ // Create and populate databases (move to own method?)
+			
+			persons = generateFakePersonsList();
+			// printPersons(persons);
+	
+			// Build rooms database
+			rooms = csvReaderRooms("/Users/Admin/eclipse-workspace/rooms.csv");
+	
+			// Build departments database
+			departments = csvReaderDepartments("/Users/Admin/eclipse-workspace/departments.csv");
+	
+			// Build radio numbers database
+			radios = csvReaderRadioNumbers("/Users/Admin/eclipse-workspace/radios.csv");
+	
+			// Build employee database
+			emps = csvReaderEmployees("/Users/Admin/eclipse-workspace/employees.csv");
+		}
+		
 		// User input
 		userInput(rooms, departments, radios, emps, scanner);
 	}
