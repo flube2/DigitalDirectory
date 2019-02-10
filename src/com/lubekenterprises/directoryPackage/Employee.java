@@ -56,6 +56,41 @@ public class Employee extends Person {
 	}
 
 	/**
+	 * @param first
+	 * @param last
+	 * @param phoneNum
+	 * @param type
+	 * @param department
+	 * @param jobTitle
+	 * @param workEmail
+	 * 
+	 */
+	Employee(String first, String last, PhoneNumber phone1, Department department, String jobTitle, String workEmail,
+			String statusString) {
+		super(first, last, phone1);
+		this.department = department;
+		this.jobTitle = jobTitle;
+		this.workEmail = workEmail;
+		this.status = verifyAndSetStatus(statusString);
+	}
+
+	/**
+	 * @param firstName
+	 * @param lastName
+	 * @param email
+	 * @param address
+	 * @param primaryPhone
+	 * @param secondaryPhone
+	 * @param jobTitle
+	 * @param workEmail
+	 */
+	public Employee(String firstName, String lastName, PhoneNumber primaryPhone, String jobTitle, String workEmail) {
+		super(firstName, lastName, primaryPhone);
+		this.jobTitle = jobTitle;
+		this.workEmail = workEmail;
+	}
+
+	/**
 	 * @return the department
 	 * @author semi-auto created ///////////////////////////////////////////////
 	 */
@@ -133,6 +168,28 @@ public class Employee extends Person {
 
 	}
 
+	Boolean containsStr(String searchString) {
+
+		Boolean b = Boolean.FALSE;
+
+		if (this.firstName.contains(searchString) || this.lastName.contains(searchString)
+				|| this.jobTitle.contains(searchString)) {
+			b = Boolean.TRUE;
+		}
+
+		if (this.workEmail != null) {
+			if (this.workEmail.contains(searchString)) {
+				b = Boolean.TRUE;
+			}
+		}
+
+		if (this.primaryPhone.containsStr(searchString)) {
+			b = Boolean.TRUE;
+		}
+
+		return b;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -141,10 +198,14 @@ public class Employee extends Person {
 	void printInfo() {
 		super.printInfo();
 		System.out.println();
-		System.out.println("Status is      " + this.status.stat.toString());
-		System.out.println("Work email is  " + this.workEmail);
+		if (this.status != null) {
+			System.out.println("Status is      " + this.status.stat.toString());
+		}
+		if (this.workEmail != null) {
+			System.out.println("Work email is  " + this.workEmail);
+		}
 		System.out.println("Job title is   " + this.jobTitle);
-		this.department.printInfo();
+		// this.department.printInfo();
 	}
 
 	/*

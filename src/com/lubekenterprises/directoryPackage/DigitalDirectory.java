@@ -219,6 +219,55 @@ public class DigitalDirectory {
 
 	}
 
+	/**
+	 * @author https://www.mkyong.com/java/how-to-read-and-parse-csv-file-in-java/
+	 * @author Frank Lubek
+	 * @param path path to CSV file
+	 * 
+	 *             Edited to suit my needs
+	 */
+	static ArrayList<Employee> csvReaderEmployees(String path) {
+		String csvFile = path;
+		BufferedReader br = null;
+		String line = "";
+		String splitter = ",";
+		ArrayList<Employee> empAL = new ArrayList<>();
+
+		try {
+
+			br = new BufferedReader(new FileReader(csvFile));
+			while ((line = br.readLine()) != null) {
+
+				// use comma as separator
+				String[] employee = line.split(splitter);
+
+				try {
+					empAL.add(new Employee(employee[1], employee[0], new PhoneNumber(employee[4], "PRIMARY"),
+							employee[2], employee[5]));
+				} catch (Exception e) { // missing email
+					empAL.add(new Employee(employee[1], employee[0], new PhoneNumber(employee[4], "PRIMARY"),
+							employee[2], null));
+				}
+
+			}
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (br != null) {
+				try {
+					br.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return empAL;
+
+	}
+
 	static void printDivider() {
 		System.out.println();
 		System.out.println("--------------------------------------");
@@ -274,6 +323,19 @@ public class DigitalDirectory {
 		return radioList;
 	}
 
+	static ArrayList<Employee> findAllEmployees(String search, ArrayList<Employee> employees) {
+
+		ArrayList<Employee> employeeList = new ArrayList<>();
+
+		for (Employee e : employees) {
+			if (e.containsStr(search)) {
+				employeeList.add(e);
+			}
+		}
+
+		return employeeList;
+	}
+
 	static void printRooms(ArrayList<Room> rooms) {
 		System.out.println();
 		for (Room r : rooms) {
@@ -302,6 +364,13 @@ public class DigitalDirectory {
 		}
 	}
 
+	static void printEmployees(ArrayList<Employee> employeeList) {
+		System.out.println();
+		for (Employee e : employeeList) {
+			e.printInfo();
+		}
+	}
+
 	static void printInitialMenu() {
 
 		System.out.println();
@@ -309,7 +378,7 @@ public class DigitalDirectory {
 		System.out.println("1. Rooms and Residents Numerical");
 		System.out.println("2. Residents Alpha (Not Yet Implemented)");
 		System.out.println("3. Departments");
-		System.out.println("4. Employees (Not Yet Implemented)");
+		System.out.println("4. Employees");
 		System.out.println("5. Radio Numbers");
 		System.out.println("6. External Services (Not Yet Implemented)");
 		System.out.println("7. All (Not Yet Implemented)");
@@ -317,26 +386,19 @@ public class DigitalDirectory {
 		return;
 	}
 
-	
-	
-	
 	/**
 	 * @param rooms
 	 * @param departments
 	 * @param rad
 	 * @param scanner
+	 * @param employees
 	 * @return
 	 * 
-	 * 	1. Rooms and Residents Numerical
-	 *  2. Residents Alpha
-	 *  3. Departments
-	 *  4. Employees
-	 *  5. Radio Call Numbers
-	 *  6. External Services
-	 *  7. All
+	 * 		1. Rooms and Residents Numerical 2. Residents Alpha 3. Departments 4.
+	 *         Employees 5. Radio Call Numbers 6. External Services 7. All
 	 */
 	static int userInput(ArrayList<Room> rooms, ArrayList<Department> departments, ArrayList<Radio> rad,
-			Scanner scanner) {
+			ArrayList<Employee> employees, Scanner scanner) {
 
 		printInitialMenu();
 
@@ -367,6 +429,14 @@ public class DigitalDirectory {
 					searchString = searchString.substring(0, 1).toUpperCase() + searchString.substring(1);
 					ArrayList<Department> deptList = findAllDepartments(searchString, departments);
 					printDepartments(deptList);
+					break;
+
+				case 4: // Employees
+					System.out.println("Please enter search term:");
+					searchString = scanner.nextLine();
+					searchString = searchString.substring(0, 1).toUpperCase() + searchString.substring(1);
+					ArrayList<Employee> empList = findAllEmployees(searchString, employees);
+					printEmployees(empList);
 					break;
 
 				case 5: // Radios
@@ -403,6 +473,7 @@ public class DigitalDirectory {
 		ArrayList<Person> persons;
 		ArrayList<Department> departments;
 		ArrayList<Radio> radios;
+		ArrayList<Employee> emps;
 		Scanner scanner = new Scanner(System.in); // scanner.nextLine() to read input strings
 
 		// Create and populate databases
@@ -421,8 +492,12 @@ public class DigitalDirectory {
 		// Build radio numbers database
 		radios = csvReaderRadioNumbers("/Users/Admin/eclipse-workspace/radios.csv");
 		// printRadioNumbers(radios);
+
+		// Build employee database
+		emps = csvReaderEmployees("/Users/Admin/eclipse-workspace/employees.csv");
+
 		// User input
-		userInput(rooms, departments, radios, scanner);
+		userInput(rooms, departments, radios, emps, scanner);
 	}
 
 }
