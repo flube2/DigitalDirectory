@@ -5,3 +5,7 @@ This program's purpose is to replace the physical pen-and-paper directory at wor
 2/6/2019 - Functionality implemented for rooms and departments (read, store, search) 
 
 2/7/2019 - Functionality implemented for radio call numbers (read, store, search)
+
+2/9/2019 - Functionality implemented for employees (read, store, search)
+
+2/10/2019 - Functionality implemented for residents (read, store, search)
