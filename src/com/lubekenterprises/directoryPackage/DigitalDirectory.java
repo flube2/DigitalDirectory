@@ -353,16 +353,15 @@ public class DigitalDirectory {
 
 				// use comma as separator
 				String[] boardMember = line.split(splitter);
-				
-				
-				
-				if(boardMember[0].contentEquals("end")) {
+
+				if (boardMember[0].contentEquals("end")) {
 					return bmAL;
 				}
 
 				// All 3 phone numbers
-				if (!boardMember[3].contentEquals("null") && !boardMember[5].contentEquals("null") && !boardMember[7].contentEquals("null")) {
-					
+				if (!boardMember[3].contentEquals("null") && !boardMember[5].contentEquals("null")
+						&& !boardMember[7].contentEquals("null")) {
+
 					if (boardMember[10].contentEquals("null")) {
 						bmAL.add(new BoardMember(boardMember[0], boardMember[1], boardMember[2],
 								new PhoneNumber(boardMember[3], boardMember[4]),
@@ -377,7 +376,8 @@ public class DigitalDirectory {
 				}
 
 				// home and work, no cell
-				else if (!boardMember[3].contentEquals("null") && !boardMember[5].contentEquals("null") && boardMember[7].contentEquals("null")) {
+				else if (!boardMember[3].contentEquals("null") && !boardMember[5].contentEquals("null")
+						&& boardMember[7].contentEquals("null")) {
 					if (!boardMember[10].contentEquals("null")) {
 						bmAL.add(new BoardMember(boardMember[0], boardMember[1], boardMember[2],
 								new PhoneNumber(boardMember[3], boardMember[4]),
@@ -391,7 +391,8 @@ public class DigitalDirectory {
 				}
 
 				// home and cell, no work
-				else if (!boardMember[3].contentEquals("null") && boardMember[5].contentEquals("null") && !boardMember[7].contentEquals("null")) {
+				else if (!boardMember[3].contentEquals("null") && boardMember[5].contentEquals("null")
+						&& !boardMember[7].contentEquals("null")) {
 					if (!boardMember[10].contentEquals("null")) {
 						bmAL.add(new BoardMember(boardMember[0], boardMember[1], boardMember[2],
 								new PhoneNumber(boardMember[3], boardMember[4]), null,
@@ -404,7 +405,8 @@ public class DigitalDirectory {
 				}
 
 				// work and cell, no home
-				else if (boardMember[3].contentEquals("null") && !boardMember[5].contentEquals("null") && !boardMember[7].contentEquals("null")) {
+				else if (boardMember[3].contentEquals("null") && !boardMember[5].contentEquals("null")
+						&& !boardMember[7].contentEquals("null")) {
 					if (!boardMember[10].contentEquals("null")) {
 						bmAL.add(new BoardMember(boardMember[0], boardMember[1], boardMember[2], null,
 								new PhoneNumber(boardMember[5], boardMember[6]),
@@ -417,7 +419,8 @@ public class DigitalDirectory {
 				}
 
 				// home, no work or cell
-				else if (!boardMember[3].contentEquals("null") && boardMember[5].contentEquals("null") && boardMember[7].contentEquals("null")) {
+				else if (!boardMember[3].contentEquals("null") && boardMember[5].contentEquals("null")
+						&& boardMember[7].contentEquals("null")) {
 					if (!boardMember[10].contentEquals("null")) {
 						bmAL.add(new BoardMember(boardMember[0], boardMember[1], boardMember[2],
 								new PhoneNumber(boardMember[3], boardMember[4]), null, null, boardMember[9],
@@ -429,7 +432,8 @@ public class DigitalDirectory {
 				}
 
 				// work, no home or cell
-				else if (boardMember[3].contentEquals("null") && !boardMember[5].contentEquals("null") && boardMember[7].contentEquals("null")) {
+				else if (boardMember[3].contentEquals("null") && !boardMember[5].contentEquals("null")
+						&& boardMember[7].contentEquals("null")) {
 					if (!boardMember[10].contentEquals("null")) {
 						bmAL.add(new BoardMember(boardMember[0], boardMember[1], boardMember[2], null,
 								new PhoneNumber(boardMember[5], boardMember[6]), null, boardMember[9],
@@ -441,7 +445,8 @@ public class DigitalDirectory {
 				}
 
 				// cell, no home or work
-				else if (boardMember[3].contentEquals("null") && boardMember[5].contentEquals("null") && !boardMember[7].contentEquals("null")) {
+				else if (boardMember[3].contentEquals("null") && boardMember[5].contentEquals("null")
+						&& !boardMember[7].contentEquals("null")) {
 					if (!boardMember[10].contentEquals("null")) {
 						bmAL.add(new BoardMember(boardMember[0], boardMember[1], boardMember[2], null, null,
 								new PhoneNumber(boardMember[7], boardMember[8]), boardMember[9], boardMember[10]));
@@ -450,12 +455,12 @@ public class DigitalDirectory {
 								new PhoneNumber(boardMember[7], boardMember[8]), boardMember[9], null));
 					}
 				}
-				
+
 				else {
-					System.err.println("Unable to enter board member " + boardMember[0] + " " + boardMember[1] + " into database.");
+					System.err.println("Unable to enter board member " + boardMember[0] + " " + boardMember[1]
+							+ " into database.");
 				}
 
-	
 			}
 
 			// else error
@@ -572,12 +577,16 @@ public class DigitalDirectory {
 	}
 
 	static void printRooms(ArrayList<Room> rooms) {
-		System.out.println();
+		if (!rooms.isEmpty()) {
+			System.out.println();
+			System.out.println("****** Rooms/Numerical Results ******");
+		}
 		for (Room r : rooms) {
 			r.printInfo();
 		}
 	}
 
+	// Is the below method used or deprecated?
 	static void printPersons(ArrayList<Person> people) {
 		System.out.println();
 		for (Person p : people) {
@@ -586,43 +595,60 @@ public class DigitalDirectory {
 	}
 
 	static void printDepartments(ArrayList<Department> departmentList) {
-		System.out.println();
+		if (!departmentList.isEmpty()) {
+			System.out.println();
+			System.out.println("****** Department Results ******");
+		}
 		for (Department department : departmentList) {
 			department.printInfo();
 		}
 	}
 
 	static void printRadioNumbers(ArrayList<Radio> radioList) {
-		System.out.println();
+
+		if (!radioList.isEmpty()) {
+			System.out.println();
+			System.out.println("****** Radio Numbers ******");
+		}
 		for (Radio rad : radioList) {
 			rad.printInfo();
 		}
 	}
 
 	static void printEmployees(ArrayList<Employee> employeeList) {
-		System.out.println();
+		if (!employeeList.isEmpty()) {
+			System.out.println();
+			System.out.println("****** Employee Results ******");
+		}
 		for (Employee e : employeeList) {
 			e.printInfo();
 		}
 	}
 
 	static void printResidents(ArrayList<Resident> residentList) {
-		System.out.println();
+
+		if (!residentList.isEmpty()) {
+			System.out.println();
+			System.out.println("****** Residents Alpha Results ******");
+		}
 		for (Resident r : residentList) {
 			r.printInfo();
 		}
 	}
 
 	static void printBoardMembers(ArrayList<BoardMember> memberList) {
-		System.out.println();
+		if (!memberList.isEmpty()) {
+			System.out.println();
+			System.out.println("****** Board of Directors Results ******");
+		}
 		for (BoardMember bm : memberList) {
 			bm.printInfo();
 		}
 	}
 
 	static void printInitialMenu() {
-
 		System.out.println();
+		System.out.println("***********************************");
 		System.out.println("Please select a category to search:");
 		System.out.println("1. Rooms and Residents Numerical");
 		System.out.println("2. Residents Alpha");
@@ -632,7 +658,7 @@ public class DigitalDirectory {
 		System.out.println("6. External Services (Not Yet Implemented)");
 		System.out.println("7. Board of Directors");
 		System.out.println("0. All");
-
+		System.out.println("***********************************");
 		return;
 	}
 
@@ -650,7 +676,8 @@ public class DigitalDirectory {
 	 * @return
 	 */
 	static int userInput(ArrayList<Room> rooms, ArrayList<Department> departments, ArrayList<Radio> radios,
-			ArrayList<Employee> employees, ArrayList<Resident> residents, ArrayList<BoardMember> boardMembers, Scanner scanner) {
+			ArrayList<Employee> employees, ArrayList<Resident> residents, ArrayList<BoardMember> boardMembers,
+			Scanner scanner) {
 
 		printInitialMenu();
 
@@ -669,6 +696,8 @@ public class DigitalDirectory {
 				case 1: // Rooms
 					System.out.println("Please enter search term:");
 					searchString = scanner.nextLine();
+					System.out.println("***********************************");
+					System.out.println();
 					searchString = capitalize(searchString);
 					ArrayList<Room> roomList = findAllRooms(searchString, rooms);
 					printRooms(roomList);
@@ -677,6 +706,8 @@ public class DigitalDirectory {
 				case 2: // Residents
 					System.out.println("Please enter search term:");
 					searchString = scanner.nextLine();
+					System.out.println("***********************************");
+					System.out.println();
 					searchString = capitalize(searchString);
 					ArrayList<Resident> resList = findAllResidents(searchString, residents);
 					printResidents(resList);
@@ -685,6 +716,8 @@ public class DigitalDirectory {
 				case 3: // Departments
 					System.out.println("Please enter search term:");
 					searchString = scanner.nextLine();
+					System.out.println("***********************************");
+					System.out.println();
 					searchString = capitalize(searchString);
 					ArrayList<Department> deptList = findAllDepartments(searchString, departments);
 					printDepartments(deptList);
@@ -693,6 +726,8 @@ public class DigitalDirectory {
 				case 4: // Employees
 					System.out.println("Please enter search term:");
 					searchString = scanner.nextLine();
+					System.out.println("***********************************");
+					System.out.println();
 					searchString = capitalize(searchString);
 					ArrayList<Employee> empList = findAllEmployees(searchString, employees);
 					printEmployees(empList);
@@ -701,25 +736,31 @@ public class DigitalDirectory {
 				case 5: // Radios
 					System.out.println("Please enter search term: ");
 					searchString = scanner.nextLine();
+					System.out.println("***********************************");
+					System.out.println();
 					searchString = capitalize(searchString);
 					ArrayList<Radio> rads = findAllRadios(searchString, radios);
 					printRadioNumbers(rads);
 					break;
-					
+
 				case 7:
 					System.out.println("Please enter search term: ");
 					searchString = scanner.nextLine();
+					System.out.println("***********************************");
+					System.out.println();
 					searchString = capitalize(searchString);
 					ArrayList<BoardMember> boardOfDirectors = findAllBoardMembers(searchString, boardMembers);
 					printBoardMembers(boardOfDirectors);
 					break;
-					
 
 				case 0: // All
 					System.out.println("Please enter search term: ");
 					searchString = scanner.nextLine();
+					System.out.println("***********************************");
+					System.out.println();
 					searchString = capitalize(searchString);
-					roomList = findAllRooms(searchString, rooms); // enable partial room number??
+					roomList = findAllRooms(searchString, rooms); // enable partial room number?? No for now because 12
+																	// yields cottages too
 					printRooms(roomList);
 					resList = findAllResidents(searchString, residents);
 					printResidents(resList);

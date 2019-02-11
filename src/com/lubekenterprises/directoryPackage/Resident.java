@@ -15,7 +15,7 @@ public class Resident extends Person {
 	 */
 
 	Room room1; // implement this later
-	//Room room2;
+	// Room room2;
 	String roomNumber;
 	String email;
 	Boolean onVacation;
@@ -42,7 +42,6 @@ public class Resident extends Person {
 //		this.notes = notes;
 //	}
 
-	
 	/**
 	 * @param firstName
 	 * @param lastName
@@ -59,17 +58,12 @@ public class Resident extends Person {
 		this.email = email;
 	}
 
-
-
-
-
 	/**
 	 * @return the room1
 	 */
 	public Room getRoom1() {
 		return room1;
 	}
-
 
 	/**
 	 * @param room1 the room1 to set
@@ -120,29 +114,29 @@ public class Resident extends Person {
 		this.notes = notes;
 	}
 
-	
 	Boolean containsStr(String searchString) {
-		
-		if(this.roomNumber.contains(searchString) || this.firstName.contains(searchString) || this.lastName.contains(searchString)) {
+
+		if (this.roomNumber.contains(searchString) || this.firstName.contains(searchString)
+				|| this.lastName.contains(searchString)) {
 			return Boolean.TRUE;
 		}
-		
-		if(this.email != null) {
-			if(this.email.contains(searchString)) {
+
+		if (this.email != null) {
+			if (this.email.contains(searchString)) {
 				return Boolean.TRUE;
 			}
 		}
-		
-		if(this.primaryPhone != null) {
-			if(this.primaryPhone.containsStr(searchString)) {
+
+		if (this.primaryPhone != null) {
+			if (this.primaryPhone.containsStr(searchString)) {
 				return Boolean.TRUE;
 			}
 		}
-		
+
 		return Boolean.FALSE;
-		
+
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -155,20 +149,21 @@ public class Resident extends Person {
 //		if (this.room2 != null) {
 //			this.room2.printInfo();
 //		}
-		
+
 		System.out.println("Room  " + this.roomNumber);
 		System.out.println("Email/Notes " + this.email);
-		
-		if(this.onVacation != null) {
-		System.out.println("On vacation?   " + this.onVacation);
+
+		if (this.onVacation != null) {
+			System.out.println("On vacation?   " + this.onVacation);
 		}
 		if (this.notes != null) {
 			System.out.println(this.notes);
 		}
-		System.out.println();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -179,7 +174,5 @@ public class Resident extends Person {
 				+ (onVacation != null ? "onVacation=" + onVacation + ", " : "")
 				+ (notes != null ? "notes=" + notes : "") + "]";
 	}
-
-
 
 }

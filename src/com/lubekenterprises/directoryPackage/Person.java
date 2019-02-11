@@ -152,6 +152,7 @@ public class Person {
 	 * 
 	 */
 	void printInfo() {
+		System.out.println();
 		System.out.println("First Name is  " + this.firstName);
 		System.out.println("Last Name is   " + this.lastName);
 		if (this.email != null) {

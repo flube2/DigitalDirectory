@@ -192,9 +192,6 @@ public class BoardMember {
 			System.out.println(this.notes);
 		}
 		
-		System.out.println();
-
-
 	}
 	
 	
