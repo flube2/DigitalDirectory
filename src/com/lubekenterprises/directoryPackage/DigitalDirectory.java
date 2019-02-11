@@ -277,7 +277,7 @@ public class DigitalDirectory {
 		return empAL;
 
 	}
-	
+
 	/**
 	 * @author https://www.mkyong.com/java/how-to-read-and-parse-csv-file-in-java/
 	 * @author Frank Lubek
@@ -301,12 +301,14 @@ public class DigitalDirectory {
 				String[] resident = line.split(splitter);
 
 				try {
-					resAL.add(new Resident(resident[1], resident[0], new PhoneNumber(resident[3], "HOME"), resident[2], resident[4]));
-				} catch (Exception e) { 
+					resAL.add(new Resident(resident[1], resident[0], new PhoneNumber(resident[3], "HOME"), resident[2],
+							resident[4]));
+				} catch (Exception e) {
 
 					try { // no email
-						resAL.add(new Resident(resident[1], resident[0], new PhoneNumber(resident[3], "HOME"), resident[2], null));
-					} catch(Exception e2) { // no email or phone number
+						resAL.add(new Resident(resident[1], resident[0], new PhoneNumber(resident[3], "HOME"),
+								resident[2], null));
+					} catch (Exception e2) { // no email or phone number
 						resAL.add(new Resident(resident[1], resident[0], null, resident[2], null));
 					}
 				}
@@ -329,7 +331,151 @@ public class DigitalDirectory {
 		return resAL;
 
 	}
+
+	/**
+	 * @author https://www.mkyong.com/java/how-to-read-and-parse-csv-file-in-java/
+	 * @author Frank Lubek
+	 * @param path path to CSV file
+	 * 
+	 *             Edited to suit my needs
+	 */
+	static ArrayList<BoardMember> csvReaderBoardMembers(String path) {
+		String csvFile = path;
+		BufferedReader br = null;
+		String line = "";
+		String splitter = ",";
+		ArrayList<BoardMember> bmAL = new ArrayList<>();
+
+		try {
+
+			br = new BufferedReader(new FileReader(csvFile));
+			while ((line = br.readLine()) != null) {
+
+				// use comma as separator
+				String[] boardMember = line.split(splitter);
+				
+				
+				
+				if(boardMember[0].contentEquals("end")) {
+					return bmAL;
+				}
+
+				// All 3 phone numbers
+				if (!boardMember[3].contentEquals("null") && !boardMember[5].contentEquals("null") && !boardMember[7].contentEquals("null")) {
+					
+					if (boardMember[10].contentEquals("null")) {
+						bmAL.add(new BoardMember(boardMember[0], boardMember[1], boardMember[2],
+								new PhoneNumber(boardMember[3], boardMember[4]),
+								new PhoneNumber(boardMember[5], boardMember[6]),
+								new PhoneNumber(boardMember[7], boardMember[8]), boardMember[9], boardMember[10]));
+					} else {
+						bmAL.add(new BoardMember(boardMember[0], boardMember[1], boardMember[2],
+								new PhoneNumber(boardMember[3], boardMember[4]),
+								new PhoneNumber(boardMember[5], boardMember[6]),
+								new PhoneNumber(boardMember[7], boardMember[8]), boardMember[9], null));
+					}
+				}
+
+				// home and work, no cell
+				else if (!boardMember[3].contentEquals("null") && !boardMember[5].contentEquals("null") && boardMember[7].contentEquals("null")) {
+					if (!boardMember[10].contentEquals("null")) {
+						bmAL.add(new BoardMember(boardMember[0], boardMember[1], boardMember[2],
+								new PhoneNumber(boardMember[3], boardMember[4]),
+								new PhoneNumber(boardMember[5], boardMember[6]), null, boardMember[9],
+								boardMember[10]));
+					} else {
+						bmAL.add(new BoardMember(boardMember[0], boardMember[1], boardMember[2],
+								new PhoneNumber(boardMember[3], boardMember[4]),
+								new PhoneNumber(boardMember[5], boardMember[6]), null, boardMember[9], null));
+					}
+				}
+
+				// home and cell, no work
+				else if (!boardMember[3].contentEquals("null") && boardMember[5].contentEquals("null") && !boardMember[7].contentEquals("null")) {
+					if (!boardMember[10].contentEquals("null")) {
+						bmAL.add(new BoardMember(boardMember[0], boardMember[1], boardMember[2],
+								new PhoneNumber(boardMember[3], boardMember[4]), null,
+								new PhoneNumber(boardMember[7], boardMember[8]), boardMember[9], boardMember[10]));
+					} else {
+						bmAL.add(new BoardMember(boardMember[0], boardMember[1], boardMember[2],
+								new PhoneNumber(boardMember[3], boardMember[4]), null,
+								new PhoneNumber(boardMember[7], boardMember[8]), boardMember[9], null));
+					}
+				}
+
+				// work and cell, no home
+				else if (boardMember[3].contentEquals("null") && !boardMember[5].contentEquals("null") && !boardMember[7].contentEquals("null")) {
+					if (!boardMember[10].contentEquals("null")) {
+						bmAL.add(new BoardMember(boardMember[0], boardMember[1], boardMember[2], null,
+								new PhoneNumber(boardMember[5], boardMember[6]),
+								new PhoneNumber(boardMember[7], boardMember[8]), boardMember[9], boardMember[10]));
+					} else {
+						bmAL.add(new BoardMember(boardMember[0], boardMember[1], boardMember[2], null,
+								new PhoneNumber(boardMember[5], boardMember[6]),
+								new PhoneNumber(boardMember[7], boardMember[8]), boardMember[9], null));
+					}
+				}
+
+				// home, no work or cell
+				else if (!boardMember[3].contentEquals("null") && boardMember[5].contentEquals("null") && boardMember[7].contentEquals("null")) {
+					if (!boardMember[10].contentEquals("null")) {
+						bmAL.add(new BoardMember(boardMember[0], boardMember[1], boardMember[2],
+								new PhoneNumber(boardMember[3], boardMember[4]), null, null, boardMember[9],
+								boardMember[10]));
+					} else {
+						bmAL.add(new BoardMember(boardMember[0], boardMember[1], boardMember[2],
+								new PhoneNumber(boardMember[3], boardMember[4]), null, null, boardMember[9], null));
+					}
+				}
+
+				// work, no home or cell
+				else if (boardMember[3].contentEquals("null") && !boardMember[5].contentEquals("null") && boardMember[7].contentEquals("null")) {
+					if (!boardMember[10].contentEquals("null")) {
+						bmAL.add(new BoardMember(boardMember[0], boardMember[1], boardMember[2], null,
+								new PhoneNumber(boardMember[5], boardMember[6]), null, boardMember[9],
+								boardMember[10]));
+					} else {
+						bmAL.add(new BoardMember(boardMember[0], boardMember[1], boardMember[2], null,
+								new PhoneNumber(boardMember[5], boardMember[6]), null, boardMember[9], null));
+					}
+				}
+
+				// cell, no home or work
+				else if (boardMember[3].contentEquals("null") && boardMember[5].contentEquals("null") && !boardMember[7].contentEquals("null")) {
+					if (!boardMember[10].contentEquals("null")) {
+						bmAL.add(new BoardMember(boardMember[0], boardMember[1], boardMember[2], null, null,
+								new PhoneNumber(boardMember[7], boardMember[8]), boardMember[9], boardMember[10]));
+					} else {
+						bmAL.add(new BoardMember(boardMember[0], boardMember[1], boardMember[2], null, null,
+								new PhoneNumber(boardMember[7], boardMember[8]), boardMember[9], null));
+					}
+				}
+				
+				else {
+					System.err.println("Unable to enter board member " + boardMember[0] + " " + boardMember[1] + " into database.");
+				}
+
 	
+			}
+
+			// else error
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (br != null) {
+				try {
+					br.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return bmAL;
+
+	}
 
 	static void printDivider() {
 		System.out.println();
@@ -398,7 +544,7 @@ public class DigitalDirectory {
 
 		return employeeList;
 	}
-	
+
 	static ArrayList<Resident> findAllResidents(String search, ArrayList<Resident> residents) {
 
 		ArrayList<Resident> residentList = new ArrayList<>();
@@ -410,6 +556,19 @@ public class DigitalDirectory {
 		}
 
 		return residentList;
+	}
+
+	static ArrayList<BoardMember> findAllBoardMembers(String search, ArrayList<BoardMember> members) {
+
+		ArrayList<BoardMember> memberList = new ArrayList<>();
+
+		for (BoardMember bm : members) {
+			if (bm.containsStr(search)) {
+				memberList.add(bm);
+			}
+		}
+
+		return memberList;
 	}
 
 	static void printRooms(ArrayList<Room> rooms) {
@@ -453,7 +612,14 @@ public class DigitalDirectory {
 			r.printInfo();
 		}
 	}
-	
+
+	static void printBoardMembers(ArrayList<BoardMember> memberList) {
+		System.out.println();
+		for (BoardMember bm : memberList) {
+			bm.printInfo();
+		}
+	}
+
 	static void printInitialMenu() {
 
 		System.out.println();
@@ -464,21 +630,16 @@ public class DigitalDirectory {
 		System.out.println("4. Employees");
 		System.out.println("5. Radio Numbers");
 		System.out.println("6. External Services (Not Yet Implemented)");
-		System.out.println("7. All");
+		System.out.println("7. Board of Directors");
+		System.out.println("0. All");
 
 		return;
 	}
 
 	/**
-	 * @param rooms
-	 * @param departments
-	 * @param rad
-	 * @param scanner
-	 * @param employees
-	 * @return
 	 * 
-	 * 		1. Rooms and Residents Numerical 2. Residents Alpha 3. Departments 4.
-	 *         Employees 5. Radio Call Numbers 6. External Services 7. All
+	 * 1. Rooms and Residents Numerical 2. Residents Alpha 3. Departments 4.
+	 * Employees 5. Radio Call Numbers 6. External Services 7. All
 	 */
 	/**
 	 * @param rooms
@@ -489,7 +650,7 @@ public class DigitalDirectory {
 	 * @return
 	 */
 	static int userInput(ArrayList<Room> rooms, ArrayList<Department> departments, ArrayList<Radio> radios,
-			ArrayList<Employee> employees, ArrayList<Resident> residents, Scanner scanner) {
+			ArrayList<Employee> employees, ArrayList<Resident> residents, ArrayList<BoardMember> boardMembers, Scanner scanner) {
 
 		printInitialMenu();
 
@@ -509,10 +670,10 @@ public class DigitalDirectory {
 					System.out.println("Please enter search term:");
 					searchString = scanner.nextLine();
 					searchString = capitalize(searchString);
-					ArrayList<Room> roomList = findAllRooms(searchString, rooms); // enable partial room number??
+					ArrayList<Room> roomList = findAllRooms(searchString, rooms);
 					printRooms(roomList);
 					break;
-					
+
 				case 2: // Residents
 					System.out.println("Please enter search term:");
 					searchString = scanner.nextLine();
@@ -545,7 +706,16 @@ public class DigitalDirectory {
 					printRadioNumbers(rads);
 					break;
 					
-				case 7: // All
+				case 7:
+					System.out.println("Please enter search term: ");
+					searchString = scanner.nextLine();
+					searchString = capitalize(searchString);
+					ArrayList<BoardMember> boardOfDirectors = findAllBoardMembers(searchString, boardMembers);
+					printBoardMembers(boardOfDirectors);
+					break;
+					
+
+				case 0: // All
 					System.out.println("Please enter search term: ");
 					searchString = scanner.nextLine();
 					searchString = capitalize(searchString);
@@ -559,9 +729,9 @@ public class DigitalDirectory {
 					printEmployees(empList);
 					rads = findAllRadios(searchString, radios);
 					printRadioNumbers(rads);
+					boardOfDirectors = findAllBoardMembers(searchString, boardMembers);
+					printBoardMembers(boardOfDirectors);
 					break;
-					
-					
 
 				default:
 					System.out.println("Invalid Selection");
@@ -577,9 +747,6 @@ public class DigitalDirectory {
 
 		return 0;
 	}
-	
-	
-	
 
 	/**
 	 * @author Frank Lubek
@@ -594,33 +761,37 @@ public class DigitalDirectory {
 		ArrayList<Radio> radios;
 		ArrayList<Employee> emps;
 		ArrayList<Resident> residents;
-		
+		ArrayList<BoardMember> boardMembers;
+
 		// User input will be needed
 		Scanner scanner = new Scanner(System.in);
 
 		{ // Create and populate databases (move to own method?)
-			
+
 			persons = generateFakePersonsList();
 			// printPersons(persons);
-	
+
 			// Build rooms database
 			rooms = csvReaderRooms("/Users/Admin/eclipse-workspace/rooms.csv");
-	
+
 			// Build departments database
 			departments = csvReaderDepartments("/Users/Admin/eclipse-workspace/departments.csv");
-	
+
 			// Build radio numbers database
 			radios = csvReaderRadioNumbers("/Users/Admin/eclipse-workspace/radios.csv");
-	
+
 			// Build employee database
 			emps = csvReaderEmployees("/Users/Admin/eclipse-workspace/employees.csv");
-			
+
 			// Build residents database
 			residents = csvReaderResidents("/Users/Admin/eclipse-workspace/residents.csv");
+
+			// Build board members database
+			boardMembers = csvReaderBoardMembers("/Users/Admin/eclipse-workspace/board_of_directors.csv");
 		}
-		
+
 		// User input
-		userInput(rooms, departments, radios, emps, residents, scanner);
+		userInput(rooms, departments, radios, emps, residents, boardMembers, scanner);
 	}
 
 }

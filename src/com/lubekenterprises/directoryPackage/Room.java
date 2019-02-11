@@ -125,11 +125,11 @@ public class Room {
 		return roomNumber.equalsIgnoreCase(this.roomNumber);
 	}
 
-	Boolean containsStr(String search) {
+Boolean containsStr(String search) {
 
 		// below line could also do this.roomNumber.contains(search) to search all rooms
 		// ending in 12, etc.
-		Boolean b = (search.equalsIgnoreCase(this.roomNumber) || this.unit.contains(search));
+		Boolean b = (this.roomNumber.contentEquals(search) || this.unit.contains(search));
 
 		if (this.occupants != null) {
 
