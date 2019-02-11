@@ -138,7 +138,8 @@ public class PhoneNumber {
 	 */
 	void printInfo() {
 		System.out.println("Type is        " + this.type.toString());
-		System.out.println("Full number is " + this.fullNumber);
+		//System.out.println(this.fullNumber);
+		System.out.println("Full number is " + "(" + this.fullNumber.substring(0, 3) + ")" + this.fullNumber.substring(3,  6) + "-" + this.fullNumber.substring(6));
 		if (this.extension != "" && this.type != PhoneNumberType.FAX) {
 			System.out.println("Extension is   " + this.extension);
 		}

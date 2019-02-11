@@ -151,8 +151,9 @@ public class Resident extends Person {
 //		}
 
 		System.out.println("Room  " + this.roomNumber);
+		if(this.email != null && !this.email.contentEquals("null")) {
 		System.out.println("Email/Notes " + this.email);
-
+		}
 		if (this.onVacation != null) {
 			System.out.println("On vacation?   " + this.onVacation);
 		}

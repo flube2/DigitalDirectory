@@ -191,7 +191,7 @@ public class BoardMember {
 		if(this.notes != null && !this.notes.contentEquals("null")) {
 			System.out.println(this.notes);
 		}
-		
+		System.out.println();
 	}
 	
 	
