@@ -16,6 +16,7 @@ public class Room {
 	String unit;
 	ArrayList<String> occupants;
 	PhoneNumber phone;
+	String email;
 	String notes;
 
 	/**
@@ -27,13 +28,14 @@ public class Room {
 	 * @param notes
 	 */
 	public Room(String roomNumber, String floor, String unit, ArrayList<String> occupants, PhoneNumber phoneNumber,
-			String notes) {
+			String email, String notes) {
 		super();
 		this.roomNumber = roomNumber;
 		this.floor = floor;
 		this.unit = unit;
 		this.occupants = occupants;
 		this.phone = phoneNumber;
+		this.email = email;
 		this.notes = notes;
 	}
 
@@ -108,6 +110,20 @@ public class Room {
 	}
 
 	/**
+	 * @return the email
+	 */
+	public String getEmail() {
+		return email;
+	}
+
+	/**
+	 * @param email the email to set
+	 */
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	/**
 	 * @return the notes
 	 */
 	public String getNotes() {
@@ -129,30 +145,45 @@ public class Room {
 
 		// below line could also do this.roomNumber.contains(search) to search all rooms
 		// ending in 12, etc.
-		Boolean b = (this.roomNumber.contentEquals(search) || this.unit.contains(search));
+		//
+		// 2/12/19 The above comment is necessary for new database with patient room
+		// numbers like 302-1
+		if (this.roomNumber.contains(search) || this.unit.contains(search)) {
+			return Boolean.TRUE;
+		}
+		;
 
 		if (this.occupants != null) {
 
 			for (String occupant : occupants) {
-				if (occupant.contains(search)) {
+				if (occupant.toLowerCase().contains(search.toLowerCase())) {
 					return Boolean.TRUE;
 				}
 			}
 
 		}
 
+		if (this.phone != null) {
+			if (this.phone.containsStr(search)) {
+				return Boolean.TRUE;
+			}
+			;
+		}
+
+		if (this.email != null) {
+			if (this.email.contains(search)) {
+				return Boolean.TRUE;
+			}
+			;
+		}
+
 		if (this.notes != null) {
 			if (this.notes.contains(search)) {
 				return Boolean.TRUE;
 			}
+			;
 		}
-
-		if (this.phone != null) {
-			return (b || this.phone.containsStr(search));
-		} else {
-			return b;
-		}
-
+		return Boolean.FALSE;
 	}
 
 	/**
@@ -171,8 +202,11 @@ public class Room {
 		if (this.phone != null) {
 			this.phone.printInfo();
 		}
+		if (this.email != null) {
+			System.out.println("Email is      " + this.email);
+		}
 		if (this.notes != null && this.notes != "null") {
-			System.out.println(this.notes);
+			System.out.println("**Notes** " + this.notes);
 		}
 		System.out.println();
 
@@ -188,7 +222,8 @@ public class Room {
 		return "Room [" + (roomNumber != null ? "roomNumber=" + roomNumber + ", " : "")
 				+ (floor != null ? "floor=" + floor + ", " : "") + (unit != null ? "unit=" + unit + ", " : "")
 				+ (occupants != null ? "occupants=" + occupants + ", " : "")
-				+ (phone != null ? "phone=" + phone + ", " : "") + (notes != null ? "notes=" + notes : "") + "]";
+				+ (phone != null ? "phone=" + phone + ", " : "") + (email != null ? "email=" + email + ", " : "")
+				+ (notes != null ? "notes=" + notes : "") + "]";
 	}
 
 }

@@ -26,6 +26,8 @@ public class DigitalDirectory {
 
 		ArrayList<Person> al = new ArrayList<Person>();
 
+		// add(new Person(...))
+
 		return al;
 	}
 
@@ -39,6 +41,8 @@ public class DigitalDirectory {
 		ArrayList<Person> pl = new ArrayList<Person>();
 		ArrayList<Person> pl2 = new ArrayList<Person>();
 
+		// add(new Room(...))
+
 		return roomList;
 	}
 
@@ -48,6 +52,8 @@ public class DigitalDirectory {
 	public static ArrayList<Department> generateFakeDepartmentsList() {
 
 		ArrayList<Department> deptList = new ArrayList<Department>();
+
+		// add(new Department(...))
 
 		return deptList;
 	}
@@ -68,6 +74,9 @@ public class DigitalDirectory {
 	 * @param path path to CSV file
 	 * 
 	 *             Edited to suit my needs
+	 * 
+	 *             If there are 2 phone numbers for one room then the second number
+	 *             will be displayed in notes section
 	 */
 	static ArrayList<Room> csvReaderRooms(String path) {
 		String csvFile = path;
@@ -99,18 +108,26 @@ public class DigitalDirectory {
 				}
 
 				try {
-					// If there are 2 phone numbers for one room than the second number will be
-					// displayed in notes section
+					// With both email and notes
 					roomAL.add(new Room(room[3], room[3].substring(0, 1), room[2], occupants,
-							new PhoneNumber(room[4], "primary"), room[5]));
+							new PhoneNumber(room[4], "primary"), room[5], room[6]));
 
 				} catch (Exception e) {
 
 					try {
+						// With notes but no email
 						roomAL.add(new Room(room[3], room[3].substring(0, 1), room[2], occupants,
-								new PhoneNumber(room[4], "primary"), null));
-					} catch (Exception e2) { // missing phone number
-						roomAL.add(new Room(room[3], room[3].substring(0, 1), room[2], occupants, null, null));
+								new PhoneNumber(room[4], "primary"), null, room[6]));
+					} catch (Exception e2) {
+						try {
+						// With email no notes
+						roomAL.add(new Room(room[3], room[3].substring(0, 1), room[2], occupants, new PhoneNumber(room[4], "PRIMARY"), room[5], null));
+						}
+						catch(Exception anotherDarnException) {
+							// No email or notes
+							roomAL.add(new Room(room[3], room[3].substring(0, 1), room[2], occupants, new PhoneNumber(room[4], "PRIMARY"), null, null));
+
+						}
 					}
 
 				}
@@ -579,7 +596,8 @@ public class DigitalDirectory {
 	static void printRooms(ArrayList<Room> rooms) {
 		if (!rooms.isEmpty()) {
 			System.out.println();
-			System.out.println("****** Rooms/Numerical Results ******");
+			System.out.println("****** Room/Resident Results ******");
+
 		}
 		for (Room r : rooms) {
 			r.printInfo();
@@ -650,23 +668,18 @@ public class DigitalDirectory {
 		System.out.println();
 		System.out.println("***********************************");
 		System.out.println("Please select a category to search:");
-		System.out.println("1. Rooms and Residents Numerical");
-		System.out.println("2. Residents Alpha");
-		System.out.println("3. Departments");
-		System.out.println("4. Employees");
-		System.out.println("5. Radio Numbers");
-		System.out.println("6. External Services (Not Yet Implemented)");
-		System.out.println("7. Board of Directors");
+		System.out.println("1. Rooms and Residents");
+		System.out.println("2. Departments");
+		System.out.println("3. Employees");
+		System.out.println("4. Radio Numbers");
+		System.out.println("5. External Services (Not Yet Implemented)");
+		System.out.println("6. Board of Directors");
 		System.out.println("0. All");
 		System.out.println("***********************************");
 		return;
 	}
 
-	/**
-	 * 
-	 * 1. Rooms and Residents Numerical 2. Residents Alpha 3. Departments 4.
-	 * Employees 5. Radio Call Numbers 6. External Services 7. All
-	 */
+
 	/**
 	 * @param rooms
 	 * @param departments
@@ -703,17 +716,7 @@ public class DigitalDirectory {
 					printRooms(roomList);
 					break;
 
-				case 2: // Residents
-					System.out.println("Please enter search term:");
-					searchString = scanner.nextLine();
-					System.out.println("***********************************");
-					System.out.println();
-					searchString = capitalize(searchString);
-					ArrayList<Resident> resList = findAllResidents(searchString, residents);
-					printResidents(resList);
-					break;
-
-				case 3: // Departments
+				case 2: // Departments
 					System.out.println("Please enter search term:");
 					searchString = scanner.nextLine();
 					System.out.println("***********************************");
@@ -723,7 +726,7 @@ public class DigitalDirectory {
 					printDepartments(deptList);
 					break;
 
-				case 4: // Employees
+				case 3: // Employees
 					System.out.println("Please enter search term:");
 					searchString = scanner.nextLine();
 					System.out.println("***********************************");
@@ -733,7 +736,7 @@ public class DigitalDirectory {
 					printEmployees(empList);
 					break;
 
-				case 5: // Radios
+				case 4: // Radios
 					System.out.println("Please enter search term: ");
 					searchString = scanner.nextLine();
 					System.out.println("***********************************");
@@ -743,7 +746,7 @@ public class DigitalDirectory {
 					printRadioNumbers(rads);
 					break;
 
-				case 7:
+				case 6:
 					System.out.println("Please enter search term: ");
 					searchString = scanner.nextLine();
 					System.out.println("***********************************");
@@ -759,11 +762,10 @@ public class DigitalDirectory {
 					System.out.println("***********************************");
 					System.out.println();
 					searchString = capitalize(searchString);
-					roomList = findAllRooms(searchString, rooms); // enable partial room number?? No for now because 12
-																	// yields cottages too
+					roomList = findAllRooms(searchString, rooms); // enable partial room number?? No for now because 12												// yields cottages too
 					printRooms(roomList);
-					resList = findAllResidents(searchString, residents);
-					printResidents(resList);
+//					resList = findAllResidents(searchString, residents);
+//					printResidents(resList);
 					deptList = findAllDepartments(searchString, departments);
 					printDepartments(deptList);
 					empList = findAllEmployees(searchString, employees);
@@ -774,9 +776,25 @@ public class DigitalDirectory {
 					printBoardMembers(boardOfDirectors);
 					break;
 
-				default:
-					System.out.println("Invalid Selection");
-
+				default: // search all by default
+					System.out.println("Please enter search term: ");
+					searchString = scanner.nextLine();
+					System.out.println("***********************************");
+					System.out.println();
+					searchString = capitalize(searchString);
+					roomList = findAllRooms(searchString, rooms); // enable partial room number?? No for now because 12												// yields cottages too
+					printRooms(roomList);
+//					resList = findAllResidents(searchString, residents);
+//					printResidents(resList);
+					deptList = findAllDepartments(searchString, departments);
+					printDepartments(deptList);
+					empList = findAllEmployees(searchString, employees);
+					printEmployees(empList);
+					rads = findAllRadios(searchString, radios);
+					printRadioNumbers(rads);
+					boardOfDirectors = findAllBoardMembers(searchString, boardMembers);
+					printBoardMembers(boardOfDirectors);
+					break;
 				}
 
 			} catch (NumberFormatException nfe) {
@@ -808,12 +826,14 @@ public class DigitalDirectory {
 		Scanner scanner = new Scanner(System.in);
 
 		{ // Create and populate databases (move to own method?)
+			// ************************************** Export code to a class DirectoryHelper
+			// and call methods **************************************
 
-			persons = generateFakePersonsList();
+			// persons = generateFakePersonsList();
 			// printPersons(persons);
 
 			// Build rooms database
-			rooms = csvReaderRooms("/Users/Admin/eclipse-workspace/rooms.csv");
+			rooms = csvReaderRooms("/Users/Admin/eclipse-workspace/resRooms.csv");
 
 			// Build departments database
 			departments = csvReaderDepartments("/Users/Admin/eclipse-workspace/departments.csv");

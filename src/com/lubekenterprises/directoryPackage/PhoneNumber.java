@@ -41,8 +41,7 @@ public class PhoneNumber {
 			this.type = getValidEnum(typeString);
 		} else {
 			// TODO: implement exiting to main menu, not exiting the program
-			System.out.println("Error: Invalid Phone Number In Database");
-			System.out.println(fullNumber);
+			System.out.println("Error: Invalid Phone Number In Database: " + fullNumber);
 		}
 	}
 
@@ -57,8 +56,9 @@ public class PhoneNumber {
 
 	/**
 	 * @param fullNumber the fullNumber to get the extension from
-	 * @return the last 4 digits of the fullNumber iff it is a number that may come
+	 * @return the last 4 digits of the fullNumber IFF it is a number that *may* come
 	 *         from within the building (588 and 482 area codes)
+	 *         but of course nearby businesses will have an extension falsely added
 	 */
 	String getExtensionValue(String fullNumber) {
 

@@ -138,7 +138,7 @@ public class BoardMember {
 	
 	Boolean containsStr(String searchString) {
 		
-		if(this.firstName.contains(searchString) || this.lastName.contains(searchString) || this.address.contains(searchString) || this.email.contains(searchString)) {
+		if(this.firstName.toLowerCase().contains(searchString.toLowerCase()) || this.lastName.toLowerCase().contains(searchString.toLowerCase()) || this.address.contains(searchString) || this.email.toLowerCase().contains(searchString.toLowerCase())) {
 		return Boolean.TRUE;	
 		}
 		

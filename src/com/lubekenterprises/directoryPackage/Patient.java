@@ -3,24 +3,17 @@
  */
 package com.lubekenterprises.directoryPackage;
 
-import com.lubekenterprises.directoryPackage.Bed.BedType;
 
 /**
  * @author Frank Lubek
  *
  */
-class Bed {
-	enum BedType {
-		A, B
-	};
 
-	BedType bed;
-}
 
 public class Patient extends Person {
 
 	Room room;
-	BedType bed;
+	String bed;
 	String notes;
 
 	/**
@@ -34,7 +27,7 @@ public class Patient extends Person {
 	 * @param bed
 	 */
 	public Patient(String firstName, String lastName, String email, String address, PhoneNumber primaryPhone,
-			PhoneNumber secondaryPhone, Room room, BedType bed, String notesString) {
+			PhoneNumber secondaryPhone, Room room, String bed, String notesString) {
 		super(firstName, lastName, email, address, primaryPhone, secondaryPhone);
 		this.room = room;
 		this.bed = bed;
@@ -58,14 +51,14 @@ public class Patient extends Person {
 	/**
 	 * @return the bed
 	 */
-	public BedType getBed() {
+	public String getBed() {
 		return bed;
 	}
 
 	/**
 	 * @param bed the bed to set
 	 */
-	public void setBed(BedType bed) {
+	public void setBed(String bed) {
 		this.bed = bed;
 	}
 
@@ -90,7 +83,7 @@ public class Patient extends Person {
 	 */
 	public void printInfo() {
 		super.printInfo();
-		System.out.println("Patient room # " + this.room.roomNumber + "-" + this.bed.toString());
+		System.out.println("Patient room # " + this.room.roomNumber + "-" + this.bed);
 		if (this.notes != null) {
 			System.out.println(this.notes);
 		}
