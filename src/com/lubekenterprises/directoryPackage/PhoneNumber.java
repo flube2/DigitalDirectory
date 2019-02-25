@@ -129,8 +129,8 @@ public class PhoneNumber {
 	}
 
 	Boolean containsStr(String search) {
-		return search.equalsIgnoreCase(this.extension) || search.equalsIgnoreCase(this.fullNumber)
-				|| search.equalsIgnoreCase(this.type.toString());
+		return search.equalsIgnoreCase(this.extension) || search.equalsIgnoreCase(this.fullNumber);
+				// || search.equalsIgnoreCase(this.type.toString());
 	}
 
 	/**

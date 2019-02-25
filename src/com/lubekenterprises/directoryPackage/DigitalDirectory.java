@@ -533,12 +533,53 @@ public class DigitalDirectory {
 		ArrayList<Room> roomList = new ArrayList<>();
 
 		for (Room room : rooms) {
+			
 			if (room.containsStr(search)) {
+				if(room.roomNumber.startsWith("3")) {
+					roomList.add(0, room);
+				}
+				else {
+					roomList.add(room);
+				}
+			}
+		}
+
+		return roomList;
+	}
+	
+	static ArrayList<Room> findAllPatients(String search, ArrayList<Room> rooms) {
+
+		ArrayList<Room> roomList = new ArrayList<>();
+
+		for (Room room : rooms) {
+			if (room.containsStr(search) && room.roomNumber.startsWith("3")) {
 				roomList.add(room);
 			}
 		}
 
 		return roomList;
+	}
+	
+	static void getAdditionalPatients(ArrayList<Room> roomList, ArrayList<Room> rooms) {
+
+		if(!roomList.isEmpty()) {
+			ArrayList<Room> patientsAdditional = patientFromInputRoomNumber(roomList, rooms);
+			if(patientsAdditional != null)
+			printPatients(patientsAdditional);
+		}
+	}
+	
+	static Room findPatient(String search, ArrayList<Room> rooms) {
+
+		for (Room room : rooms) {
+			//System.out.println(search);
+			
+			if (room.containsStr(search) && room.roomNumber.startsWith("3")) { // room.containsStr not working
+				return room;
+			}
+		}
+
+		return null;
 	}
 
 	static ArrayList<Radio> findAllRadios(String search, ArrayList<Radio> radios) {
@@ -592,11 +633,40 @@ public class DigitalDirectory {
 
 		return memberList;
 	}
+	
+	static ArrayList<Room> patientFromInputRoomNumber(ArrayList<Room> roomList, ArrayList<Room> allRooms){
+
+		ArrayList<Room> patients = new ArrayList<>();
+	
+
+		for(Room r : roomList) {
+			if(!r.occupants.isEmpty() && !r.roomNumber.startsWith("3")) {
+				for(String occupant : r.occupants) {
+					Room patient = findPatient(occupant, allRooms);
+					if(patient != null) {
+					patients.add(patient);
+					}
+				}
+			}
+		}
+		return patients;
+	}
 
 	static void printRooms(ArrayList<Room> rooms) {
 		if (!rooms.isEmpty()) {
 			System.out.println();
 			System.out.println("****** Room/Resident Results ******");
+
+		}
+		for (Room r : rooms) {
+			r.printInfo();
+		}
+	}
+	
+	static void printPatients(ArrayList<Room> rooms) {
+		if (!rooms.isEmpty()) {
+			System.out.println();
+			System.out.println("****** Medical/HCC Results ******");
 
 		}
 		for (Room r : rooms) {
@@ -669,11 +739,12 @@ public class DigitalDirectory {
 		System.out.println("***********************************");
 		System.out.println("Please select a category to search:");
 		System.out.println("1. Rooms and Residents");
-		System.out.println("2. Departments");
-		System.out.println("3. Employees");
-		System.out.println("4. Radio Numbers");
-		System.out.println("5. External Services (Not Yet Implemented)");
-		System.out.println("6. Board of Directors");
+		System.out.println("2. Patients");
+		System.out.println("3. Departments");
+		System.out.println("4. Employees");
+		System.out.println("5. Radio Numbers");
+		System.out.println("6. External Services (Not Yet Implemented)");
+		System.out.println("7. Board of Directors");
 		System.out.println("0. All");
 		System.out.println("***********************************");
 		return;
@@ -703,6 +774,7 @@ public class DigitalDirectory {
 
 			if (searchString.equalsIgnoreCase("clear")) {
 				System.out.println("\033[H\033[2J"); // this does not clear eclipse java console
+				System.out.flush();
 			}
 
 			try {
@@ -718,8 +790,18 @@ public class DigitalDirectory {
 					ArrayList<Room> roomList = findAllRooms(searchString, rooms);
 					printRooms(roomList);
 					break;
+					
+				case "2": // Patients
+					System.out.println("Please enter search term:");
+					searchString = scanner.nextLine();
+					System.out.println("***********************************");
+					System.out.println();
+					searchString = capitalize(searchString);
+					ArrayList<Room> patients = findAllPatients(searchString, rooms); // search 3rd floor only
+					printPatients(patients);
+					break;
 
-				case "2": // Departments
+				case "3": // Departments
 					System.out.println("Please enter search term:");
 					searchString = scanner.nextLine();
 					System.out.println("***********************************");
@@ -729,7 +811,7 @@ public class DigitalDirectory {
 					printDepartments(deptList);
 					break;
 
-				case "3": // Employees
+				case "4": // Employees
 					System.out.println("Please enter search term:");
 					searchString = scanner.nextLine();
 					System.out.println("***********************************");
@@ -739,7 +821,7 @@ public class DigitalDirectory {
 					printEmployees(empList);
 					break;
 
-				case "4": // Radios
+				case "5": // Radios
 					System.out.println("Please enter search term: ");
 					searchString = scanner.nextLine();
 					System.out.println("***********************************");
@@ -749,7 +831,7 @@ public class DigitalDirectory {
 					printRadioNumbers(rads);
 					break;
 
-				case "6": // Board of Directors
+				case "7": // Board of Directors
 					System.out.println("Please enter search term: ");
 					searchString = scanner.nextLine();
 					System.out.println("***********************************");
@@ -765,6 +847,8 @@ public class DigitalDirectory {
 					System.out.println("***********************************");
 					System.out.println();
 					searchString = capitalize(searchString);
+					patients = findAllPatients(searchString, rooms); // search 3rd floor only
+					printPatients(patients);
 					roomList = findAllRooms(searchString, rooms); // enable partial room number?? No for now because 12												// yields cottages too
 					printRooms(roomList);
 //					resList = findAllResidents(searchString, residents);
@@ -779,24 +863,25 @@ public class DigitalDirectory {
 					printBoardMembers(boardOfDirectors);
 					break;
 
-				default: // search all by default
+				default: // search all by default, except Board of Directors
 					//System.out.println("Please enter search term: ");
 					//searchString = scanner.nextLine();
 					System.out.println("***********************************");
 					System.out.println();
 					searchString = capitalize(searchString);
+					//patients = findAllPatients(searchString, rooms); // search 3rd floor only
 					roomList = findAllRooms(searchString, rooms); // enable partial room number?? No for now because 12												// yields cottages too
+					getAdditionalPatients(roomList, rooms);
+					//printPatients(patients);
 					printRooms(roomList);
-//					resList = findAllResidents(searchString, residents);
-//					printResidents(resList);
 					deptList = findAllDepartments(searchString, departments);
 					printDepartments(deptList);
 					empList = findAllEmployees(searchString, employees);
 					printEmployees(empList);
 					rads = findAllRadios(searchString, radios);
 					printRadioNumbers(rads);
-					boardOfDirectors = findAllBoardMembers(searchString, boardMembers);
-					printBoardMembers(boardOfDirectors);
+					//boardOfDirectors = findAllBoardMembers(searchString, boardMembers);
+					//printBoardMembers(boardOfDirectors);
 					break;
 				}
 
@@ -826,7 +911,7 @@ public class DigitalDirectory {
 		// User input will be needed
 		Scanner scanner = new Scanner(System.in);
 
-		{ // Create and populate databases (move to own method?)
+		{   // Create and populate databases (move to own method?)
 			// ************************************** Export code to a class DirectoryHelper
 			// and call methods **************************************
 
