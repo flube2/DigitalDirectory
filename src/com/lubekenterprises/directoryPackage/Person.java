@@ -58,7 +58,7 @@ public class Person {
 	 * @param primaryPhone
 	 */
 	public Person(String firstName, String lastName, PhoneNumber primaryPhone) {
-		super();
+		super(); /// Object is superclass
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.primaryPhone = primaryPhone;

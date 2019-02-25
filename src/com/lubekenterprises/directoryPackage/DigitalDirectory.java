@@ -38,8 +38,8 @@ public class DigitalDirectory {
 	public static ArrayList<Room> generateFakeRoomsList(ArrayList<Person> persons) {
 
 		ArrayList<Room> roomList = new ArrayList<Room>();
-		ArrayList<Person> pl = new ArrayList<Person>();
-		ArrayList<Person> pl2 = new ArrayList<Person>();
+		//ArrayList<Person> pl = new ArrayList<Person>();
+		//ArrayList<Person> pl2 = new ArrayList<Person>();
 
 		// add(new Room(...))
 
@@ -687,9 +687,12 @@ public class DigitalDirectory {
 	 * @param employees
 	 * @param scanner
 	 * @return
+	 * 
+	 * Note: All params shall have been initialized in main()
+	 * 
 	 */
 	static int userInput(ArrayList<Room> rooms, ArrayList<Department> departments, ArrayList<Radio> radios,
-			ArrayList<Employee> employees, ArrayList<Resident> residents, ArrayList<BoardMember> boardMembers,
+			ArrayList<Employee> employees, ArrayList<BoardMember> boardMembers,
 			Scanner scanner) {
 
 		printInitialMenu();
@@ -704,9 +707,9 @@ public class DigitalDirectory {
 
 			try {
 
-				switch (Integer.parseInt(searchString)) {
+				switch (searchString) {
 
-				case 1: // Rooms
+				case "1": // Rooms
 					System.out.println("Please enter search term:");
 					searchString = scanner.nextLine();
 					System.out.println("***********************************");
@@ -716,7 +719,7 @@ public class DigitalDirectory {
 					printRooms(roomList);
 					break;
 
-				case 2: // Departments
+				case "2": // Departments
 					System.out.println("Please enter search term:");
 					searchString = scanner.nextLine();
 					System.out.println("***********************************");
@@ -726,7 +729,7 @@ public class DigitalDirectory {
 					printDepartments(deptList);
 					break;
 
-				case 3: // Employees
+				case "3": // Employees
 					System.out.println("Please enter search term:");
 					searchString = scanner.nextLine();
 					System.out.println("***********************************");
@@ -736,7 +739,7 @@ public class DigitalDirectory {
 					printEmployees(empList);
 					break;
 
-				case 4: // Radios
+				case "4": // Radios
 					System.out.println("Please enter search term: ");
 					searchString = scanner.nextLine();
 					System.out.println("***********************************");
@@ -746,7 +749,7 @@ public class DigitalDirectory {
 					printRadioNumbers(rads);
 					break;
 
-				case 6:
+				case "6": // Board of Directors
 					System.out.println("Please enter search term: ");
 					searchString = scanner.nextLine();
 					System.out.println("***********************************");
@@ -756,7 +759,7 @@ public class DigitalDirectory {
 					printBoardMembers(boardOfDirectors);
 					break;
 
-				case 0: // All
+				case "0": // All
 					System.out.println("Please enter search term: ");
 					searchString = scanner.nextLine();
 					System.out.println("***********************************");
@@ -777,8 +780,8 @@ public class DigitalDirectory {
 					break;
 
 				default: // search all by default
-					System.out.println("Please enter search term: ");
-					searchString = scanner.nextLine();
+					//System.out.println("Please enter search term: ");
+					//searchString = scanner.nextLine();
 					System.out.println("***********************************");
 					System.out.println();
 					searchString = capitalize(searchString);
@@ -815,11 +818,11 @@ public class DigitalDirectory {
 
 		// Declare necessary variables
 		ArrayList<Room> rooms;
-		ArrayList<Person> persons;
+		//ArrayList<Person> persons;
 		ArrayList<Department> departments;
 		ArrayList<Radio> radios;
 		ArrayList<Employee> emps;
-		ArrayList<Resident> residents;
+		//ArrayList<Resident> residents;
 		ArrayList<BoardMember> boardMembers;
 
 		// User input will be needed
@@ -829,30 +832,25 @@ public class DigitalDirectory {
 			// ************************************** Export code to a class DirectoryHelper
 			// and call methods **************************************
 
-			// persons = generateFakePersonsList();
-			// printPersons(persons);
 
-			// Build rooms database
-			rooms = csvReaderRooms("/Users/Admin/eclipse-workspace/resRooms.csv");
+			// Build rooms and residents database
+			rooms = csvReaderRooms("/Users/Admin/eclipse-workspace/Directory/TestData/resRoomsTestData.csv");
 
 			// Build departments database
-			departments = csvReaderDepartments("/Users/Admin/eclipse-workspace/departments.csv");
+			departments = csvReaderDepartments("/Users/Admin/eclipse-workspace/Directory/TestData/departmentsTestData.csv");
 
 			// Build radio numbers database
-			radios = csvReaderRadioNumbers("/Users/Admin/eclipse-workspace/radios.csv");
+			radios = csvReaderRadioNumbers("/Users/Admin/eclipse-workspace/Directory/TestData/radiosTestData.csv");
 
 			// Build employee database
-			emps = csvReaderEmployees("/Users/Admin/eclipse-workspace/employees.csv");
-
-			// Build residents database
-			residents = csvReaderResidents("/Users/Admin/eclipse-workspace/residents.csv");
+			emps = csvReaderEmployees("/Users/Admin/eclipse-workspace/Directory/TestData/employeesTestData.csv");
 
 			// Build board members database
-			boardMembers = csvReaderBoardMembers("/Users/Admin/eclipse-workspace/board_of_directors.csv");
+			boardMembers = csvReaderBoardMembers("/Users/Admin/eclipse-workspace/Directory/TestData/board_of_directorsTestData.csv");
 		}
 
 		// User input
-		userInput(rooms, departments, radios, emps, residents, boardMembers, scanner);
+		userInput(rooms, departments, radios, emps, boardMembers, scanner);
 	}
 
 }

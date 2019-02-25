@@ -12,7 +12,7 @@ package com.lubekenterprises.directoryPackage;
 
 public class Patient extends Person {
 
-	Room room;
+	/*Room*/String room;
 	String bed;
 	String notes;
 
@@ -27,26 +27,31 @@ public class Patient extends Person {
 	 * @param bed
 	 */
 	public Patient(String firstName, String lastName, String email, String address, PhoneNumber primaryPhone,
-			PhoneNumber secondaryPhone, Room room, String bed, String notesString) {
+			PhoneNumber secondaryPhone, /*Room*/String room, String bed, String notesString) {
 		super(firstName, lastName, email, address, primaryPhone, secondaryPhone);
 		this.room = room;
 		this.bed = bed;
 		this.notes = notesString;
 	}
-
-	/**
-	 * @return the room
-	 */
-	public Room getRoom() {
-		return room;
-	}
-
-	/**
-	 * @param room the room to set
-	 */
-	public void setRoom(Room room) {
+	
+	public Patient(String firstName, String lastName, PhoneNumber phoneNumber, /*Room*/String room) {
+		super(firstName, lastName, phoneNumber);
 		this.room = room;
 	}
+
+//	/**
+//	 * @return the room
+//	 */
+//	public Room getRoom() {
+//		return room;
+//	}
+//
+//	/**
+//	 * @param room the room to set
+//	 */
+//	public void setRoom(Room room) {
+//		this.room = room;
+//	}
 
 	/**
 	 * @return the bed
@@ -83,7 +88,7 @@ public class Patient extends Person {
 	 */
 	public void printInfo() {
 		super.printInfo();
-		System.out.println("Patient room # " + this.room.roomNumber + "-" + this.bed);
+		System.out.println("Patient room # " + this.room + "-" + this.bed);
 		if (this.notes != null) {
 			System.out.println(this.notes);
 		}
