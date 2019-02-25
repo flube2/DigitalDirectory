@@ -9,3 +9,5 @@ This program's purpose is to replace the physical pen-and-paper directory at wor
 2/9/2019 - Functionality implemented for employees (read, store, search)
 
 2/10/2019 - Functionality implemented for residents (read, store, search)
+
+2/12/2019 - Merge databases for resident's numerical and alpha
