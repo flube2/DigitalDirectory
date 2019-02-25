@@ -818,11 +818,9 @@ public class DigitalDirectory {
 
 		// Declare necessary variables
 		ArrayList<Room> rooms;
-		//ArrayList<Person> persons;
 		ArrayList<Department> departments;
 		ArrayList<Radio> radios;
 		ArrayList<Employee> emps;
-		//ArrayList<Resident> residents;
 		ArrayList<BoardMember> boardMembers;
 
 		// User input will be needed
@@ -834,19 +832,19 @@ public class DigitalDirectory {
 
 
 			// Build rooms and residents database
-			rooms = csvReaderRooms("/Users/Admin/eclipse-workspace/Directory/TestData/resRoomsTestData.csv");
+			rooms = csvReaderRooms("/Users/Admin/eclipse-workspace/resRooms.csv");
 
 			// Build departments database
-			departments = csvReaderDepartments("/Users/Admin/eclipse-workspace/Directory/TestData/departmentsTestData.csv");
+			departments = csvReaderDepartments("/Users/Admin/eclipse-workspace/departments.csv");
 
 			// Build radio numbers database
-			radios = csvReaderRadioNumbers("/Users/Admin/eclipse-workspace/Directory/TestData/radiosTestData.csv");
+			radios = csvReaderRadioNumbers("/Users/Admin/eclipse-workspace/radios.csv");
 
 			// Build employee database
-			emps = csvReaderEmployees("/Users/Admin/eclipse-workspace/Directory/TestData/employeesTestData.csv");
+			emps = csvReaderEmployees("/Users/Admin/eclipse-workspace/employees.csv");
 
 			// Build board members database
-			boardMembers = csvReaderBoardMembers("/Users/Admin/eclipse-workspace/Directory/TestData/board_of_directorsTestData.csv");
+			boardMembers = csvReaderBoardMembers("/Users/Admin/eclipse-workspace/board_of_directors.csv");
 		}
 
 		// User input
