@@ -1,6 +1,6 @@
 This program's purpose is to replace the physical pen-and-paper directory at work. A digital one is much more efficient. 
 
-*Note: I have included sample CSV files and are included in the /TestData/ folder. To use with other files, alter filepaths in main() in DigitalDirectory.java.* 
+*Note: I have included sample CSV files that are included in the /TestData/ folder. To use with other files, alter filepaths in main() in DigitalDirectory.java.* 
 
 2/6/2019 - Functionality implemented for rooms and departments (read, store, search) 
 
