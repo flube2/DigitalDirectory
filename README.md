@@ -14,5 +14,5 @@ This program's purpose is to replace the physical pen-and-paper directory at wor
 
 2/24/2019 - Create test data and eliminate some dead code
 
-6/25/2019 - Made a bunch of revisions and implemented additional functionality. Forgot to update this file. Even more changes will be reflected on GitHub soon, but it may be a week or so.
+6/25/2019 - Made a bunch of revisions and implemented additional functionality on a different branch. Forgot to update this file. Even more changes will be reflected on GitHub soon, but it may be a week or so.
 
